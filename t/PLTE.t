@@ -13,12 +13,13 @@ Image::PNG::Libpng::read_png ($png);
 #print "Getting rows.\n";
 my $colors = Image::PNG::Libpng::get_PLTE ($png);
 #exit;
-#for my $color (@colors) {
-#    print "Red: $color->{red} green: $color->{green} blue: $color->{blue}\n";
-#}
+# for my $i (0..$#$colors) {
+#     my $color = $colors->[$i];
+#     print "$i: Red: $color->{red} green: $color->{green} blue: $color->{blue}\n";
+# }
 ok ($colors->[10]->{red} == 10);
 ok ($colors->[20]->{green} == 20);
-ok ($colors->[200]->{blue} == 200);
+ok ($colors->[100]->{blue} == 100);
 close $file or die $!;
 
 # Local Variables:

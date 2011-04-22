@@ -9,7 +9,7 @@ use Carp;
 use Image::PNG::Const ':all';
 use Image::PNG::Libpng ':all';
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 
 sub new

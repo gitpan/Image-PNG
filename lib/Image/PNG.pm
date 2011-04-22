@@ -9,7 +9,7 @@ use warnings;
 use strict;
 use Carp;
 
-our $VERSION = 0.01;
+our $VERSION = 0.02;
 
 
 sub error
@@ -481,9 +481,7 @@ sub display_text
 
 =head1 NAME
 
-Image::PNG
-
-Read and write PNG (Portable Network Graphics) files
+Image::PNG - Read and write PNG (Portable Network Graphics) files
 
 =head1 WARNING
 

@@ -290,15 +290,15 @@ use constant {
 
 =head1 NAME
 
-File::PNG::Const
+Image::PNG::Const
 
 =head1 SYNOPSIS
 
        # Get the constants you need:
-       use File::PNG::Const qw/PNG_TRANSFORM_INVERT_ALPHA
+       use Image::PNG::Const qw/PNG_TRANSFORM_INVERT_ALPHA
                                PNG_COLOR_MASK_ALPHA/;
        # Get everything:
-       use File::PNG::Const ':all';
+       use Image::PNG::Const ':all';
 
 This module contains no functions, only constants.
 
@@ -599,12 +599,12 @@ all the symbols in this module:
 
 This Perl module was automatically created from C<png.h>. To rebuild
 it, run the script "strip-constants.pl" in the top directory of the
-L<File::PNG> distribution. You need to have the L<Template> module
+L<Image::PNG> distribution. You need to have the L<Template> module
 installed. You may need to edit the script somewhat, depending on your
 environment.
 
 The template for creating Const.pm is in directory C<tmpl> in the
-File::PNG distribution. Its name is C<Const.pm.tmpl>.
+Image::PNG distribution. Its name is C<Const.pm.tmpl>.
 
 =head1 AUTHOR
 
@@ -612,10 +612,48 @@ Ben Bullock, <bkb@cpan.org>
 
 =head1 COPYRIGHT & LICENCE
 
-The Image::PNG module and associated files are copyright (C) 
+The Image::PNG package and associated files are copyright (C)
 2011 Ben Bullock.
 
 You can use, copy, modify and redistribute Image::PNG and
-associated files under the Artistic Licence or the GNU General Public
-Licence.
+associated files under the Perl Artistic Licence or the GNU General
+Public Licence.
+
+=head1 SUPPORT
+
+=head2 Mailing list
+
+There is a mailing list at
+L<http://groups.google.com/group/perlimagepng>. You don't need to be a
+member of the list to post messages to the list or participate in
+discussions. Your messages may be held for moderation though.
+
+If you have anything at all to say about the module, whether it is bug
+reports, feature requests, or anything else, I'd prefer to discuss it
+on the mailing list because that way there is a public record which
+everyone can access, rather than being restricted to email. That means
+that, for example, if someone else takes over maintaining this module,
+they can easily access records of previous discussions.
+
+=head2 CPAN stuff
+
+There is a bug tracker at .
+
+=head1 FOR PROGRAMMERS
+
+(This section is only for people who want to fix a bug or add an
+improvement to this module, and who want to share the change with
+other people by adding it to the public version of this module.)
+
+If you want to alter this module, please note very carefully that the
+distributed files are not actually the source code of the module. If
+you wish to obtain the source code of Image::PNG, please access
+http://www.lemoda.net/projects/image-png/repo/ using the "git" source control system.
+
+The original files of this distribution make very heavy use of the
+L<Template> Perl module in order to cut down the amount of repetitive
+stuff which needs to be put into various source and documentation
+files. If you plan to alter the C file, you also need a program called
+"cfunctions" which you can download from sourceforge.
+
 
