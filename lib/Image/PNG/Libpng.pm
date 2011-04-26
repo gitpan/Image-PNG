@@ -45,6 +45,7 @@ require DynaLoader;
 	set_unknown_chunks
 	get_unknown_chunks
 	supports
+	set_keep_unknown_chunks
 /;
 
 %EXPORT_TAGS = (
@@ -52,7 +53,7 @@ require DynaLoader;
 );
 
 require XSLoader;
-our $VERSION = 0.02;
+our $VERSION = 0.03;
 
 XSLoader::load('Image::PNG', $VERSION);
 
@@ -209,7 +210,7 @@ a routine which reads data from Perl scalars. It then uses
 C<png_read_png> to read all the data.
 
 The C function which does this is called C<perl_png_scalar_read>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.02/perl-libpng.c>.
+L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.03/perl-libpng.c>.
 
 See also L</Input/output manipulation functions>.
 
@@ -239,7 +240,7 @@ uses C<png_set_write_fn> to set the writing function of C<$png> to be
 its own function, which writes data to the Perl scalar.
 
 The C function which does this is called C<perl_png_scalar_write>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.02/perl-libpng.c>.
+L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.03/perl-libpng.c>.
 
 See also L</Input/output manipulation functions>.
 
@@ -685,14 +686,29 @@ This function corresponds to C<png_set_text>.
 
 =head1 Private chunks
 
+=head2 set_keep_unknown_chunks
+
+    use Image::PNG::Const 'PNG_HANDLE_CHUNK_ALWAYS';
+    set_keep_unknown_chunks ($png, PNG_HANDLE_CHUNK_ALWAYS);
+
+Tell libpng not to discard unknown chunks when reading the file.
+
 =head2 get_unknown_chunks
 
     my $private_chunks = get_unknown_chunks ($png);
+    # Get some data from a private chunk
+    my $chunk_three_data = $private_chunks->[3]->{data};
+    # Get the size of the data
+    print length $chunk_three_data;
 
-This gets all of the private chunks from the image. The return value
-is an array reference containing hash references. If there are no
-private chunks, this returns an undefined value. There is one element
-of the array for each chunk member.
+This gets all of the private chunks from the image. You need to call
+L</set_keep_unknown_chunks> with an appropriate value before reading
+the file, otherwise libpng discards unknown chunks when reading the
+file.
+
+The return value is an array reference containing hash references. If
+there are no private chunks, this returns an undefined value. There is
+one element of the array for each chunk member.
 
 Each member hash reference has the following keys:
 
@@ -706,6 +722,11 @@ The name of the unknown chunk, in the PNG chunk format (four bytes).
 =item location
 
 The location of the unknown chunk.
+
+
+=item data
+
+The data of the unknown chunk
 
 
 =back
@@ -986,7 +1007,7 @@ instances of unevaluated arguments, which have all been eliminated
 from this module.
 
 If you are interested in exactly which libpng arguments are omitted,
-you can find each instance L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.02/perl-libpng.c> in the macro
+you can find each instance L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.03/perl-libpng.c> in the macro
 C<UNUSED_ZERO_ARG>.
 
 =head2 Function return values are used to return values

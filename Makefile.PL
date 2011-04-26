@@ -195,10 +195,12 @@ EOF
 
 WriteMakefile (
     NAME         => 'Image::PNG',
-    VERSION      => '0.02',
+    VERSION      => '0.03',
     OBJECT       => 'Libpng.o perl-libpng.o',
     LIBS         => $libs,
     INC          => $inc,
+    AUTHOR => 'Ben Bullock <bkb@cpan.org>',
+    LICENSE => 'perl',
 );
 
 my @names = (qw());

@@ -209,10 +209,13 @@ void perl_png_handle_error (perl_libpng_t * png , int die , int raise );
 #line 1326 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_unknown_chunks (perl_libpng_t * png );
 
-#line 1374 "tmpl/perl-libpng.c.tmpl"
+#line 1373 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_unknown_chunks (perl_libpng_t * png , AV * chunk_list );
 
-#line 1439 "tmpl/perl-libpng.c.tmpl"
+#line 1438 "tmpl/perl-libpng.c.tmpl"
 int perl_png_supports (const char * what );
+
+#line 1451 "tmpl/perl-libpng.c.tmpl"
+void perl_png_set_keep_unknown_chunks (perl_libpng_t * png , int keep , SV * chunk_list );
 
 #endif /* CFH_PERL_LIBPNG_H */
