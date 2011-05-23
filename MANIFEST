@@ -5,7 +5,7 @@ MANIFEST.SKIP
 META.json
 META.yml
 Makefile.PL
-build/Build.pm
+build/ImagePNGBuild.pm
 build/LibpngInfo.pm
 build/make-files.pl
 lib/Image/PNG.pm

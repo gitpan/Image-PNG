@@ -1,7 +1,7 @@
 # This module builds the Perl distribution from the templates. This
 # module is not installed
 
-package Build;
+package ImagePNGBuild;
 use warnings;
 use strict;
 use autodie;

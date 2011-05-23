@@ -8,12 +8,12 @@ use Template;
 BEGIN {
     use FindBin;
     use lib "$FindBin::Bin";
-    use Build;
+    use ImagePNGBuild;
     use LibpngInfo 'template_vars', '@chunks';
 };
 use autodie;
 
-my %config = Build::read_config ();
+my %config = ImagePNGBuild::read_config ();
 
 my $tt = Template->new (
     ABSOLUTE => 1,
@@ -21,7 +21,7 @@ my $tt = Template->new (
 #    STRICT => 1,
 );
 
-my @libpng_diagnostics = Build::libpng_diagnostics (\%config);
+my @libpng_diagnostics = ImagePNGBuild::libpng_diagnostics (\%config);
 
 my @files = qw/
                   Util.pm
@@ -42,7 +42,7 @@ my @files = qw/
 
 my %vars;
 $vars{config} = \%config;
-my $functions = Build::get_functions (\%config);
+my $functions = ImagePNGBuild::get_functions (\%config);
 for my $chunk (@chunks) {
     if ($chunk->{auto_type}) {
         my $name = $chunk->{name};
@@ -125,7 +125,7 @@ tmpl/png_doc
 tmpl/pngspec
 tmpl/version
 tmpl/warning
-build/Build.pm
+build/ImagePNGBuild.pm
 build/LibpngInfo.pm
 build/make-files.pl
 Changes
