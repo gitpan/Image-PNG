@@ -9,7 +9,7 @@ use warnings;
 use strict;
 use Carp;
 
-our $VERSION = 0.03;
+our $VERSION = 0.04;
 
 
 sub error
@@ -697,7 +697,28 @@ users whether this works or not on various platforms.
 =head3 Image::PNG::Rewriter
 
 L<Image::PNG::Rewriter> is a utility for unpacking and recompressing
-the IDAT (image data) part of a PNG image.
+the IDAT (image data) part of a PNG image. The main purpose seems to
+be to recompress the image data with the module author's other module
+L<Compress::Deflate7>. Unfortunately that only works with Perl
+versions 5.12.
+
+=head3 Image::Pngslimmer
+
+L<Image::Pngslimmer> reduces the size of dynamically created PNG
+images. It's very, very slow at reading PNG data, but seems to work
+OK.
+
+=head3 Image::Info
+
+L<Image::Info> is a module for getting information out of various
+types of images. It has good support for PNG and is written in pure
+Perl (doesn't require a C compiler). As well as basics such as height,
+width, and colour type, it can get text chunks, modification time,
+palette, gamma (gAMA chunk), resolution (pHYs chunk), and significant
+bits (sBIT chunk). At the time of writing (version 1.31) it doesn't
+support other chunks.
+
+
 
 =head2 About the PNG format
 
@@ -716,6 +737,28 @@ in making Image::PNG, so I can't vouch for it, but looking at the
 contents pages it appears to contain a lot of useful information,
 although it is definitely showing its age, with chapters about
 software such as Netscape Navigator and BeOS.
+
+=head1 EXAMPLES
+
+There is a collection of example scripts online at L<http://www.lemoda.net/image-png/>. This currently contains
+
+=over
+
+=item PNG inspector L<http://www.lemoda.net/png/inspect/>
+
+This downloads a PNG file you specify from the internet and prints out
+its contents.
+
+=item PNG quantizer L<http://www.lemoda.net/png/quantize/>
+
+This downloads a PNG file you specify from the internet and quantizes
+it with as many colours as you want (from two to 256) in order to
+reduce its size. The quantized image is uploaded to imgur.com using
+L<WWW::Imgur>.
+
+=back
+
+
 
 =head1 AUTHOR
 
@@ -756,16 +799,17 @@ There is a bug tracker at .
 improvement to this module, and who want to share the change with
 other people by adding it to the public version of this module.)
 
-If you want to alter this module, please note very carefully that the
-distributed files are not actually the source code of the module. If
-you wish to obtain the source code of Image::PNG, please access
-http://www.lemoda.net/projects/image-png/repo/ using the "git" source control system.
+If you want to alter this module, note very carefully that the
+distributed files are not actually the source code of the module. The
+source code lives in the "tmpl" directory of the distribution and the
+distribution is created via scripts.
 
 The original files of this distribution make very heavy use of the
 L<Template> Perl module in order to cut down the amount of repetitive
 stuff which needs to be put into various source and documentation
-files. If you plan to alter the C file, you also need a program called
-"cfunctions" which you can download from sourceforge.
+files. If you plan to alter the C file, you may also need a program
+called "cfunctions" which you can download from sourceforge, which
+generates the header file perl-libpng.h from perl-libpng.c.
 
 
 

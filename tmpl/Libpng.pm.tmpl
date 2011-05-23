@@ -1,0 +1,29 @@
+# This file is just a list of exports and documentation. The source
+# code for this file is in Libpng.xs in the top directory.
+
+package [% config.base %]::Libpng;
+require Exporter;
+require DynaLoader;
+@ISA = qw(Exporter);
+@EXPORT_OK = qw/
+[% FOR function IN functions -%]
+	[% function %]
+[% END -%]
+/;
+
+%EXPORT_TAGS = (
+    all => \@EXPORT_OK,
+);
+
+require XSLoader;
+[% INCLUDE version %]
+XSLoader::load('[% config.base %]', $VERSION);
+
+1;
+
+[% INCLUDE libpng_doc %]
+
+
+# Local Variables:
+# mode: perl
+# End:

@@ -1,0 +1,8 @@
+version: 0.04
+base: Image::PNG
+author: Ben Bullock
+author_pause: BKB
+email: bkb@cpan.org
+year: 2011
+abstract: Read and write PNG (Portable Network Graphics) files
+license: perl

@@ -1,16 +1,15 @@
 # This is a wrapper for the png structure to hide some of the details
 # of the Libpng interface from the PNG.pm module. An end user should
-# never use this, only Image::PNG or Image::PNG::Libpng.
+# never use this, only [% config.base %] or [% config.base %]::Libpng.
 
-package Image::PNG::Container;
+package [% config.base %]::Container;
 use warnings;
 use strict;
 use Carp;
-use Image::PNG::Const ':all';
-use Image::PNG::Libpng ':all';
+use [% config.base %]::Const ':all';
+use [% config.base %]::Libpng ':all';
 
-our $VERSION = 0.04;
-
+[% INCLUDE version %]
 
 sub new
 {
@@ -54,7 +53,7 @@ sub set_file_name
     $object->{file_name} = $file_name;
 }
 
-sub Image::PNG::Container::open
+sub [% config.base %]::Container::open
 {
     my ($object) = @_;
     if (! $object->{file_name}) {
@@ -77,7 +76,7 @@ sub read
     if (! $object->{read_only}) {
         croak "Read on a write file";
     }
-    Image::PNG::Libpng::read_png ($object->{png});
+    [% config.base %]::Libpng::read_png ($object->{png});
     $object->{read_ok} = 1;
     if ($object->{file}) {
         close ($object->{file})
@@ -97,10 +96,10 @@ sub DESTROY
 {
     my ($object) = @_;
     if ($object->{read_only}) {
-        Image::PNG::Libpng::destroy_read_struct ($object->{png});
+        [% config.base %]::Libpng::destroy_read_struct ($object->{png});
     }
     else {
-        Image::PNG::Libpng::destroy_write_struct ($object->{png});
+        [% config.base %]::Libpng::destroy_write_struct ($object->{png});
     }
 }
 

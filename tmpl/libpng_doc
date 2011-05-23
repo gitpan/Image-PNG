@@ -1,140 +1,71 @@
-# This file is just a list of exports and documentation. The source
-# code for this file is in Libpng.xs in the top directory.
-
-package Image::PNG::Libpng;
-require Exporter;
-require DynaLoader;
-@ISA = qw(Exporter);
-@EXPORT_OK = qw/
-	create_read_struct
-	create_write_struct
-	destroy_read_struct
-	destroy_write_struct
-	write_png
-	init_io
-	read_info
-	read_update_info
-	read_image
-	read_png
-	get_text
-	set_text
-	sig_cmp
-	scalar_as_input
-	read_from_scalar
-	color_type_name
-	text_compression_name
-	get_libpng_ver
-	access_version_number
-	get_row_pointers
-	get_rows
-	get_rowbytes
-	get_channels
-	get_valid
-	set_row_pointers
-	set_tRNS_pointer
-	set_rows
-	write_to_scalar
-	set_filter
-	set_verbosity
-	set_unknown_chunks
-	get_unknown_chunks
-	supports
-	set_keep_unknown_chunks
-	get_tRNS_palette
-	set_PLTE_pointer
-	set_expand
-	set_gray_to_rgb
-	set_filler
-	get_sRGB
-	set_sRGB
-	set_packing
-	set_strip_16
-	get_bKGD
-	set_bKGD
-	get_cHRM
-	set_cHRM
-	get_gAMA
-	set_gAMA
-	get_iCCP
-	set_iCCP
-	get_IHDR
-	set_IHDR
-	get_oFFs
-	set_oFFs
-	get_pCAL
-	set_pCAL
-	get_pHYs
-	set_pHYs
-	get_PLTE
-	set_PLTE
-	get_sBIT
-	set_sBIT
-	get_sCAL
-	set_sCAL
-	get_sPLT
-	set_sPLT
-	get_tIME
-	set_tIME
-	get_tRNS
-	set_tRNS
-/;
-
-%EXPORT_TAGS = (
-    all => \@EXPORT_OK,
-);
-
-require XSLoader;
-our $VERSION = 0.04;
-
-XSLoader::load('Image::PNG', $VERSION);
-
-1;
-
 =pod
 
+[%- libpng = "=head3 Correspondence to libpng" -%]
+[%- noinfo = "No info structure" -%]
+[%- xnoinfo = BLOCK -%]
+L</[% noinfo %]>
+[%- END -%]
+[%-  noinfoxref = BLOCK -%]
+It does not take a second "info" argument. [% noinfo -%]
+[%- END -%]
+[% transform_list = BLOCK %]
+=over
+[% FOR transform IN transforms %]
+=item [% transform.name %]
 
+[% transform.text %]
+[% END %]
+=back
+[% END %]
+[% libpngdoc = "The libpng documentation" %]
+[% pngspec = "The PNG specification" %]
+[% MACRO spec(subsection) BLOCK -%]
+L<http://www.w3.org/TR/PNG/#[%- subsection -%]>
+[%- END %]
+[%- wfirstpng = BLOCK -%]
+The first argument, C<$png>, is a writeable PNG structure created with 
+L</create_write_struct>.
+[%- END -%]
+[%- rfirstpng = BLOCK -%]
+The first argument, C<$png>, is a PNG structure created with 
+L</create_read_struct>.
+[%- END -%]
+[%- MACRO cor BLOCK -%]
+[% libpng %]
 
-
-
-
-
-
+This function corresponds to C<png_[% fn %]>
+[%- END %]
+[% source_link = "http://cpansearch.perl.org/src/" _ config.author_pause _ "/" _ config.base_hyphen _ "-" _ config.version _ "/" %]
+[% perl_libpng_c = "L<in the file C<perl-libpng.c> in the top directory of the distribution|" _ source_link  _ "perl-libpng.c>" %]
+[% unused_title = "Unused arguments omitted" %]
+[% unused = "See L<" _ unused_title _ ">." %]
 
 =head1 NAME
 
-Image::PNG::Libpng - Perl interface to the C library "libpng".
+[% config.base %]::Libpng - Perl interface to the C library "libpng".
 
-=head1 WARNING
-
-This version of the module is solely for evaluation and testing. This
-module is currently incomplete and untested, and contains errors,
-bugs, and inconsistencies, including unresolved memory corruption
-errors which can crash Perl. The documentation below refers to
-functions which may or may not exist in the completed module and
-contains links to things which do not exist and may never exist.
-
-
-
+[% INCLUDE "warning" %]
 
 =head1 SYNOPSIS
 
-     use Image::PNG::Libpng;
-     my $png = Image::PNG::Libpng::create_read_struct ();
+     use [% config.base %]::Libpng;
+     my $png = [% config.base %]::Libpng::create_read_struct ();
      open my $file, '<:raw', 'nice.png';
-     Image::PNG::Libpng::init_io ($png, $file);
-     Image::PNG::Libpng::read_png ($png);
+     [% config.base %]::Libpng::init_io ($png, $file);
+     [% config.base %]::Libpng::read_png ($png);
      close $file;
-     Image::PNG::Libpng::destroy_read_struct ($png);
+     [% config.base %]::Libpng::destroy_read_struct ($png);
 
-Image::PNG::Libpng enables Perl to use the "libpng" library for
+[% config.base %]::Libpng enables Perl to use the "libpng" library for
 reading and writing files in the PNG (Portable Network Graphics)
 format.
 
-Image::PNG::Libpng consists of Perl subroutines which mirror
+[% config.base %]::Libpng consists of Perl subroutines which mirror
 the C functions in libpng, plus helper subroutines to make it easier
 to read and write PNG data in Perl. 
 
-For an easy way to access PNG files, try the companion module L<Image::PNG>, which offers a simplified interface to the functions
+For an easy way to access PNG files, try the companion module L<[%
+config.base %]>, which offers a simplified interface to the functions
 in this module.
 
 For those who are familiar with libpng, to know what the differences
@@ -149,9 +80,8 @@ L</Differences from libpng>.
 
 Create a structure for reading a PNG.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_create_read_struct> plus C<create_info_struct> (see L</No info structure>) with the error and warning handler variables set up to use
+[% cor(fn="create_read_struct") %] plus C<create_info_struct> (see [%
+xnoinfo %]) with the error and warning handler variables set up to use
 Perl's error reporting.
 
 =head2 create_write_struct
@@ -160,9 +90,8 @@ Perl's error reporting.
 
 Create a structure for writing a PNG.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_create_write_struct> plus C<create_info_struct> (see L</No info structure>)  with the error and warning handler variables set up to use
+[% cor(fn="create_write_struct") %] plus C<create_info_struct> (see [%
+xnoinfo %])  with the error and warning handler variables set up to use
 Perl's error reporting.
 
 =head2 destroy_read_struct
@@ -171,10 +100,8 @@ Perl's error reporting.
 
 This frees the memory associated with C<$png>. 
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_destroy_read_struct>, without the
-info and end_info arguments. See L</No info structure>.
+[% cor(fn="destroy_read_struct") %], without the
+info and end_info arguments. See [% xnoinfo %].
 
 =head2 destroy_write_struct
 
@@ -182,9 +109,7 @@ info and end_info arguments. See L</No info structure>.
 
 This frees the memory associated with C<$png>.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_destroy_write_struct>.
+[% cor(fn="destroy_write_struct") %].
 
 =head1 Input and output
 
@@ -210,9 +135,7 @@ or
      open my $file, ">", 'output.png';
      binmode $file;
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_init_io>, with a Perl
+[% cor(fn="init_io") %], with a Perl
 file handle substituting for the C C<FILE *>.
 
 =head2 read_from_scalar
@@ -221,8 +144,7 @@ file handle substituting for the C C<FILE *>.
      read_from_scalar ($png, $string);
 
 This subroutine sets the image data of C<$png> to be the contents of a
-Perl scalar variable C<$string>. The first argument, C<$png>, is a PNG structure created with 
-L</create_read_struct>. It reads in all the
+Perl scalar variable C<$string>. [% rfirstpng %] It reads in all the
 data from the structure on being called.
 
 This is useful when image data is stored in a Perl scalar. For example
@@ -234,14 +156,14 @@ This is useful when image data is stored in a Perl scalar. For example
      read_from_scalar ($png, $image_data);
      # Now $png contains the PNG information from the image.
 
-=head3 Correspondence to libpng
+[% libpng %]
 
 This uses C<png_set_read_fn> to set the reading function of C<$png> to
 a routine which reads data from Perl scalars. It then uses
 C<png_read_png> to read all the data.
 
 The C function which does this is called C<perl_png_scalar_read>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.04/perl-libpng.c>.
+[% perl_libpng_c %].
 
 See also L</Input/output manipulation functions>.
 
@@ -260,18 +182,17 @@ example,
 creates a PNG file called C<test-write-scalar.png> from the PNG data
 in C<$png>.
 
-The first argument, C<$png>, is a writeable PNG structure created with 
-L</create_write_struct>. The return value of the subroutine is the Perl scalar
+[% wfirstpng %] The return value of the subroutine is the Perl scalar
 containing the image data.
 
-=head3 Correspondence to libpng
+[% libpng %]
 
 This subroutine doesn't correspond directly to anything in libpng. It
 uses C<png_set_write_fn> to set the writing function of C<$png> to be
 its own function, which writes data to the Perl scalar.
 
 The C function which does this is called C<perl_png_scalar_write>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.04/perl-libpng.c>.
+[% perl_libpng_c %].
 
 See also L</Input/output manipulation functions>.
 
@@ -282,72 +203,20 @@ See also L</Input/output manipulation functions>.
 Read the entire PNG file. You can provide a second argument containing
 transformations to apply to the image:
 
-     use Image::PNG::Const qw/PNG_TRANSFORM_STRIP_ALPHA/;
+     use [% config.base %]::Const qw/PNG_TRANSFORM_STRIP_ALPHA/;
      read_png ($png, PNG_TRANSFORM_STRIP_ALPHA);
 
 In the absence of any third argument, the default value of
 C<PNG_TRANSFORM_IDENTITY> is applied. The possible transformations
 which can be applied are
 
-=over
+[%- transform_list -%]
 
-=item PNG_TRANSFORM_IDENTITY
-
-No transformation
-
-=item PNG_TRANSFORM_STRIP_16
-
-Strip 16-bit samples to 8 bits
-
-=item PNG_TRANSFORM_STRIP_ALPHA
-
-Discard the alpha channel
-
-=item PNG_TRANSFORM_PACKING
-
-Expand 1, 2 and 4-bit samples to bytes
-
-=item PNG_TRANSFORM_PACKSWAP
-
-Change order of packed pixels to LSB first
-
-=item PNG_TRANSFORM_EXPAND
-
-Expand paletted images to RGB, grayscale to 8-bit images and tRNS chunks to alpha channels
-
-=item PNG_TRANSFORM_INVERT_MONO
-
-Invert monochrome images
-
-=item PNG_TRANSFORM_SHIFT
-
-Normalize pixels to the sBIT depth
-
-=item PNG_TRANSFORM_BGR
-
-Flip RGB to BGR, RGBA to BGRA
-
-=item PNG_TRANSFORM_SWAP_ALPHA
-
-Flip RGBA to ARGB or GA to AG
-
-=item PNG_TRANSFORM_INVERT_ALPHA
-
-Change alpha from opacity to transparency
-
-=item PNG_TRANSFORM_SWAP_ENDIAN
-
-Byte-swap 16-bit samples
-
-=back
-
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_read_png> with a default value for the third
+[% cor(fn="read_png") %] with a default value for the third
 argument. The fourth, unused, argument to C<png_read_png> does not
-need to be supplied. See L<Unused arguments omitted>.
+need to be supplied. [% unused %]
 
-It does not take a second "info" argument. No info structure
+[% noinfoxref %]
 
 =head2 write_png
 
@@ -364,76 +233,22 @@ for writing and set it up with L</init_io>. For example,
 There is an optional second argument consisting of transformations to
 apply to the PNG image before writing it:
 
-    use Image::PNG::Const qw/PNG_TRANSFORM_STRIP_ALPHA/;
+    use [% config.base %]::Const qw/PNG_TRANSFORM_STRIP_ALPHA/;
     write_png ($png, PNG_TRANSFORM_STRIP_ALPHA);
 
 The transformations which can be applied are as follows:
 
-
-=over
-
-=item PNG_TRANSFORM_IDENTITY
-
-No transformation
-
-=item PNG_TRANSFORM_STRIP_16
-
-Strip 16-bit samples to 8 bits
-
-=item PNG_TRANSFORM_STRIP_ALPHA
-
-Discard the alpha channel
-
-=item PNG_TRANSFORM_PACKING
-
-Expand 1, 2 and 4-bit samples to bytes
-
-=item PNG_TRANSFORM_PACKSWAP
-
-Change order of packed pixels to LSB first
-
-=item PNG_TRANSFORM_EXPAND
-
-Expand paletted images to RGB, grayscale to 8-bit images and tRNS chunks to alpha channels
-
-=item PNG_TRANSFORM_INVERT_MONO
-
-Invert monochrome images
-
-=item PNG_TRANSFORM_SHIFT
-
-Normalize pixels to the sBIT depth
-
-=item PNG_TRANSFORM_BGR
-
-Flip RGB to BGR, RGBA to BGRA
-
-=item PNG_TRANSFORM_SWAP_ALPHA
-
-Flip RGBA to ARGB or GA to AG
-
-=item PNG_TRANSFORM_INVERT_ALPHA
-
-Change alpha from opacity to transparency
-
-=item PNG_TRANSFORM_SWAP_ENDIAN
-
-Byte-swap 16-bit samples
-
-=back
-
+[% transform_list %]
 
 (NOTE: this list might be wrong, it is just copied from the linux lib
 pages & the linux lib pages have different transformations for the
 read and write png functions.)
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_write_png>.
+[% cor(fn="write_png") %].
 
 =head1 The image header
 
-See L<http://www.w3.org/TR/PNG/#11IHDR> for information on the PNG standards for
+See [% spec("11IHDR") %] for information on the PNG standards for
 the image header.
 
 
@@ -454,9 +269,7 @@ respectively:
 If these arguments are not supplied, the byte offset is assumed
 to be zero, and the number of bytes to check is assumed to be eight.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_sig_cmp>, with default arguments of
+[% cor(fn="sig_cmp") %], with default arguments of
 0 and 8 if second and third arguments are not supplied.
 
 =head2 get_valid
@@ -470,55 +283,14 @@ This function returns a hash with a key for each possible chunk which
 may or may not be valid. The chunks which you can test for are
 
 =over
-
-=item bKGD
-
-=item cHRM
-
-=item gAMA
-
-=item hIST
-
-=item iCCP
-
-=item IDAT
-
-=item IHDR
-
-=item iTXt
-
-=item oFFs
-
-=item pCAL
-
-=item pHYs
-
-=item PLTE
-
-=item sBIT
-
-=item sCAL
-
-=item sPLT
-
-=item sRGB
-
-=item tEXt
-
-=item tIME
-
-=item tRNS
-
-=item zTXt
-
+[% FOR chunk IN chunks %]
+=item [% chunk.name %]
+[% END %]
 =back
 
-The first argument, C<$png>, is a PNG structure created with 
-L</create_read_struct>.
+[% rfirstpng %]
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_get_valid>, with the difference being that the
+[% cor(fn = "get_valid") %], with the difference being that the
 return value is a hash containing a key for each possible chunk.
 
 =head2 get_IHDR
@@ -532,34 +304,19 @@ The hash reference contains the following fields:
 
 =over
 
+[% FOR field IN ihdr_fields -%]
+[%- IF ! field.unused %]
+=item [% field.name %]
 
-=item width
+[%- IF field.text %]
+[% field.text %]
+[%- END -%]
+[%- IF field.retvalues -%]
+This can take the values [% field.retvalues.join (", ") %].
+[%- END %]
+[%- END %]
 
-The width of the image in pixels.
-
-
-=item height
-
-The height of the image in pixels.
-
-
-=item bit_depth
-
-The bit depth of the image (the number of bits used for each colour in a pixel).
-This can take the values 1, 2, 4, 8, 16.
-
-=item color_type
-
-The colour type.
-This can take the values PNG_COLOR_TYPE_GRAY, PNG_COLOR_TYPE_GRAY_ALPHA, PNG_COLOR_TYPE_PALETTE, PNG_COLOR_TYPE_RGB, PNG_COLOR_TYPE_RGB_ALPHA.
-
-=item interlace_method
-
-The method of interlacing.
-This can take the values PNG_INTERLACE_NONE, PNG_INTERLACE_ADAM7.
-
-
-
+[%- END %]
 
 =back
 
@@ -568,9 +325,7 @@ So, for example, to get the width and height of an image,
     my $ihdr = get_IHDR ($png);
     printf "Your image is %d x %d\n", $ihdr->{width}, $ihdr->{height};
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_get_IHDR>, with a single Perl hash reference
+[% cor(fn="get_IHDR") %], with a single Perl hash reference
 used instead of the several pointers to integers used in libpng.
 
 =head2 set_IHDR
@@ -581,72 +336,55 @@ used instead of the several pointers to integers used in libpng.
 
 Set the IHDR chunk (the image header) of the PNG image. 
 
-The first argument, C<$png>, is a writeable PNG structure created with 
-L</create_write_struct>. The second argument is a hash with the following values:
+[% wfirstpng %] The second argument is a hash with the following values:
 
 =over
 
+[% FOR field IN ihdr_fields -%]
+[%- IF ! field.unused %]
+=item [% field.name %]
 
-=item width
+[%- IF field.text %]
+[% field.text %]
+[%- END -%]
+[%- IF field.retvalues -%]
+This can have the values [% field.retvalues.join (", ") %].
+[%- END %]
+[%- END %]
 
-The width of the image in pixels.
-
-
-=item height
-
-The height of the image in pixels.
-
-
-=item bit_depth
-
-The bit depth of the image (the number of bits used for each colour in a pixel).
-This can have the values 1, 2, 4, 8, 16.
-
-=item color_type
-
-The colour type.
-This can have the values PNG_COLOR_TYPE_GRAY, PNG_COLOR_TYPE_GRAY_ALPHA, PNG_COLOR_TYPE_PALETTE, PNG_COLOR_TYPE_RGB, PNG_COLOR_TYPE_RGB_ALPHA.
-
-=item interlace_method
-
-The method of interlacing.
-This can have the values PNG_INTERLACE_NONE, PNG_INTERLACE_ADAM7.
-
-
-
+[%- END %]
 
 =back
 
 Other fields in the hash are ignored.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_set_IHDR>, with a single Perl hash reference
+[% cor(fn="set_IHDR") %], with a single Perl hash reference
 used instead of the seven integers. The variables
-C<compression_method>, C<filter_method>, 
+[% FOR field IN ihdr_fields -%]
+[%- IF field.unused -%]
+C<[%- field.name %]>, [% END -%]
+[%- END %]
 in C<png_set_IHDR> can only take one possible value, so the routine
-ignores them. See L<Unused arguments omitted>.
+ignores them. [% unused %]
 
 =head2 get_color_type
 
     my $color_type;
-    Image::PNG::Libpng::get_color_type ($png, \$color_type);
+    [% config.base %]::Libpng::get_color_type ($png, \$color_type);
 
 This returns an integer value. If you want to get a name for the
 colour type, use L</color_type_name>.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_get_color_type>.
+[% cor(fn="get_color_type") %].
 
 =head1 PNG timestamps
 
-See L<http://www.w3.org/TR/PNG/#11timestampinfo> for information on the PNG standards for
+See [% spec("11timestampinfo") %] for information on the PNG standards for
 time stamp information.
 
 =head2 get_tIME
 
-    my $time = Image::PNG::Libpng::get_tIME ($png);
+    my $time = [% config.base %]::Libpng::get_tIME ($png);
     if ($time && $time->{year} < 2005) {
         warn "Your PNG is now getting old. Don't forget to oil it to prevent rust.";
     }
@@ -656,9 +394,7 @@ puts it into fields labelled "year", "month", "day", "hour", "minute"
 and "second" of the hash reference given as the third argument. If
 there is no modification time it returns an undefined value.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_get_tIME>, with a Perl hash reference
+[% cor(fn="get_tIME") %], with a Perl hash reference
 substituted for the C struct C<png_timep> used in libpng.
 
 =head2 set_tIME
@@ -673,19 +409,17 @@ second argument. If the second argument is omitted, the time is set to
 the current time. If any of year, month, day, hour, minute or second
 is omitted, these are set to zero.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_set_tIME>, with a Perl hash reference
+[% cor(fn="set_tIME") %], with a Perl hash reference
 substituted for the C struct C<png_timep> used in libpng.
 
 =head1 Text chunks
 
-See L<http://www.w3.org/TR/PNG/#11textinfo> for information on the PNG standards for
+See [% spec("11textinfo") %] for information on the PNG standards for
 text information.
 
 =head2 get_text
 
-    my $text_chunks = Image::PNG::Libpng::get_text ($png);
+    my $text_chunks = [% config.base %]::Libpng::get_text ($png);
 
 This subroutine gets all the text chunks in the PNG image and returns
 them as an array reference. Each element of the array represents one
@@ -694,24 +428,23 @@ with the text fields such as "key", "lang_key", "compression" taken
 from the PNG's information.
 
 The text data is uncompressed by libpng. If it is international text,
-Image::PNG::Libpng automatically puts it into Perl's internal
+[% config.base %]::Libpng automatically puts it into Perl's internal
 Unicode encoding (UTF-8). 
 
 Note that PNG international text is required to be in the UTF-8
 encoding, and non-international text is required to contain whitespace
-and printable ASCII characters only. See L</The PNG specification> for more on
+and printable ASCII characters only. See L</[% pngspec %]> for more on
 the requirements of a PNG text section.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_get_text>, with a Perl array of hash
+[% cor(fn="get_text") %], with a Perl array of hash
 references substituted for the C array of structs used in libpng.
 
 =head2 set_text
 
     set_text ($png, $text_chunks);
 
-This sets the text chunks in an array reference C<$text_chunks>. . If you call it more than once, the chunks are appended
+This sets the text chunks in an array reference C<$text_chunks>. [%
+wfirstarg %]. If you call it more than once, the chunks are appended
 to the existing ones rather than replacing them.
 
     set_text ($png, [{compression => PNG_TEXT_COMPRESSION_NONE,
@@ -719,9 +452,7 @@ to the existing ones rather than replacing them.
                       text => "Copyright (C) 1997 The Dukes of Hazzard",
               }]);
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_set_text>.
+[% cor(fn="set_text") %].
 
 =head1 Private chunks
 
@@ -752,38 +483,23 @@ one element of the array for each chunk member.
 Each member hash reference has the following keys:
 
 =over
+[% FOR field IN unknown_chunk_fields %]
+=item [% field.name %]
 
-=item name
-
-The name of the unknown chunk, in the PNG chunk format (four bytes).
-
-
-=item location
-
-The location of the unknown chunk.
-
-
-=item data
-
-The data of the unknown chunk
-
-
+[% field.description %]
+[% END %]
 =back
 
 The "size" field of the PNG structure is not stored, because the
 "data" member of the hash contains information on its length.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_get_unknown_chunks>
+[% cor(fn="get_unknown_chunks") %]
 
 =head2 set_unknown_chunks
 
     set_unknown_chunks ($png, $private_chunks);
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_set_unknown_chunks>
+[% cor(fn="set_unknown_chunks") %]
 
 =head1 Helper functions
 
@@ -794,13 +510,13 @@ conventions.
 
 =head2 color_type_name
 
-    my $name = Image::PNG::Libpng::color_type_name ($color_type);
+    my $name = [% config.base %]::Libpng::color_type_name ($color_type);
 
 Given a numerical colour type in C<$color_type>, return the equivalent
 name. The name is in upper case, with words separated by underscores,
 as in C<RGB_ALPHA>.
 
-=head3 Correspondence to libpng
+[% libpng %]
 
 This function does not correspond to anything in libpng. The names of
 the colour types are taken from those defined in the libpng header
@@ -808,7 +524,7 @@ file, C<png.h>.
 
 =head2 text_compression_name
 
-    my $name = Image::PNG::Libpng::text_compression_name ($text->{compression});
+    my $name = [% config.base %]::Libpng::text_compression_name ($text->{compression});
 
 Given a numerical text compression type, return the equivalent
 name. The name is in upper case. The possible return values are
@@ -833,7 +549,7 @@ For some reason the compression field is also used to store the
 information about whether the text is "international text" in UTF-8 or
 not.
 
-=head3 Correspondence to libpng
+[% libpng %]
 
 This function does not correspond to anything in libpng. The names of
 the text compression types are based on those in C<png.h>, but without
@@ -845,36 +561,32 @@ C<ITXT_zTXt>.
 
 =head2 get_libpng_ver
 
-    my $libpng_version = Image::PNG::Libpng::get_libpng_ver ();
+    my $libpng_version = [% config.base %]::Libpng::get_libpng_ver ();
 
 This function returns the version of the libpng library which the
 module is using.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_get_libpng_ver>. However, it
+[% cor(fn="get_libpng_ver") %]. However, it
 doesn't require the C<png_structp> argument of the C function. See
 L</About libpng>.
 
 =head2 access_version_number
 
-    my $libpng_version_number = Image::PNG::Libpng::access_version_number ();
+    my $libpng_version_number = [% config.base %]::Libpng::access_version_number ();
 
 This function returns the version of the libpng library which the
 module is using as an integer number.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_access_version_number>.
+[% cor(fn="access_version_number") %].
 
 =head1 Palettes
 
-See L<http://www.w3.org/TR/PNG/#11PLTE> for information on the PNG standards for
+See [% spec("11PLTE") %] for information on the PNG standards for
 the palette chunk.
 
 =head2 get_PLTE
 
-     my $colours = Image::PNG::Libpng::get_PLTE ($png);
+     my $colours = [% config.base %]::Libpng::get_PLTE ($png);
      # Get the green value of the twentieth entry in the palette.
      my $green = $colours->[20]->{green};
 
@@ -887,8 +599,8 @@ undefined value.
 A PNG image may or may not contain a palette. To check whether the
 image contains a palette, use something of the following form:
 
-     use Image::PNG::Const ':all';
-     my $color_type = Image::PNG::Libpng::get_color_type ($png);
+     use [% config.base %]::Const ':all';
+     my $color_type = [% config.base %]::Libpng::get_color_type ($png);
      if ($color_type == PNG_COLOR_TYPE_PALETTE) {
          # The PNG uses a palette.
      }
@@ -896,16 +608,13 @@ image contains a palette, use something of the following form:
 A PNG image may also contain a palette even when the "color_type" does
 not indicate that. To check for that case, use L</get_valid>.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_get_PLTE>.
+[% cor(fn="get_PLTE") %].
 
 =head2 set_PLTE
 
     set_PLTE ($png, $palette);
 
-Set the palette of C<$png>. The first argument, C<$png>, is a writeable PNG structure created with 
-L</create_write_struct>. The second argument is an
+Set the palette of C<$png>. [% wfirstpng %] The second argument is an
 array reference containing hash references. There is one hash
 reference for each palette entry. The hash references contain three
 fields, red, green, and blue, corresponding to the pixel value for
@@ -917,15 +626,13 @@ ignored. For example,
 
 creates a palette with two entries in C<$png>.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_set_PLTE>.
+[% cor(fn="set_PLTE") %].
 
 =head1 Image data
 
 =head2 get_rows
 
-    my $rows = Image::PNG::Libpng::get_rows ($png);
+    my $rows = [% config.base %]::Libpng::get_rows ($png);
     my $pixel = substr ($rows->[10], 20, 1);
 
 This returns the rows of the PNG image, after uncompressing and
@@ -941,9 +648,7 @@ You can get the number of bytes in each row using L</get_rowbytes>.
 Each row is a Perl string. Perl terminates each row of data with an
 extra zero byte at the end.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_get_rows>.
+[% cor(fn="get_rows") %].
 
 =head2 set_rows
 
@@ -960,17 +665,13 @@ See L</set_rows is unreliable>.
 I recommend that you only use this immediately before calling L</write_png> 
 in order to prevent problems occuring.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_set_rows>.
+[% cor(fn="set_rows") %].
 
 =head2 get_rowbytes
 
     my $bytes_in_a_row = get_rowbytes ($png);
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_get_rowbytes>.
+[% cor(fn="get_rowbytes") %].
 
 =head1 Compression and filtering
 
@@ -983,21 +684,9 @@ This sets the filters which are allowed to be used for writing a PNG
 image. The possible values are
 
 =over
-
-=item PNG_NO_FILTERS
-
-=item PNG_FILTER_NONE
-
-=item PNG_FILTER_SUB
-
-=item PNG_FILTER_UP
-
-=item PNG_FILTER_AVG
-
-=item PNG_FILTER_PAETH
-
-=item PNG_ALL_FILTERS
-
+[% FOR filter IN filters %]
+=item [% filter.macro %]
+[% END %]
 =back
 
 These can be combined using C<|> (logical or):
@@ -1005,13 +694,11 @@ These can be combined using C<|> (logical or):
     use Image::PNG::Const ':all';
     set_filter ($png, PNG_FILTER_UP | PNG_FILTER_AVG);
 
-Please see L<http://www.w3.org/TR/PNG/#9Filter-types> for the meanings of these
+Please see [% spec("9Filter-types") %] for the meanings of these
 filter types.
 
-=head3 Correspondence to libpng
-
-This function corresponds to C<png_set_filter> with the second (unused)
-argument omitted. See L<Unused arguments omitted>.
+[% cor(fn="set_filter") %] with the second (unused)
+argument omitted. [% unused %]
 
 =head1 EXPORTS
 
@@ -1019,23 +706,23 @@ Nothing is exported by default, but all the functions in this module
 can be exported on request. The export tag 'all' exports everything in
 the module:
 
-    use Image::PNG::Libpng ':all';
+    use [% config.base %]::Libpng ':all';
     # Now everything in the module has been imported
 
 =head1 Differences from libpng
 
-The procedures in Image::PNG::Libpng are closely based on
+The procedures in [% config.base %]::Libpng are closely based on
 those of libpng, with the following differences.
 
-=head2 No info structure
+=head2 [% noinfo %]
 
-This module, C<Image::PNG::Libpng> does not use the "info"
+This module, C<[% config.base %]::Libpng> does not use the "info"
 structure of libpng. Almost all libpng functions require two initial
 arguments, a C<png_structp> and a C<png_infop>. However, in 
-Image::PNG::Libpng, both the "png" and the "info" are contained in
+[% config.base %]::Libpng, both the "png" and the "info" are contained in
 the first argument to each function.
 
-=head2 Unused arguments omitted
+=head2 [% unused_title %]
 
 This module eliminates all the unevaluated arguments of libpng. For
 example, libpng requires the user to pass a pointer to a C<png_struct>
@@ -1046,7 +733,7 @@ instances of unevaluated arguments, which have all been eliminated
 from this module.
 
 If you are interested in exactly which libpng arguments are omitted,
-you can find each instance L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.04/perl-libpng.c> in the macro
+you can find each instance [% perl_libpng_c %] in the macro
 C<UNUSED_ZERO_ARG>.
 
 =head2 Function return values are used to return values
@@ -1058,7 +745,7 @@ function to return an array of pointers, but C<png_get_PLTE> (see
 L</get_PLTE>) uses a pointer reference to return an array of pointers,
 and the return value to indicate errors. 
 
-Image::PNG::Libpng uses only the return value. Errors and
+[% config.base %]::Libpng uses only the return value. Errors and
 non-existence are indicated by a return value of the undefined
 value. You can also choose to raise errors or print errors using the
 L</raise_error> and L</print_error> options.
@@ -1104,207 +791,21 @@ png_write_rows.
 The module may produce the following error or warning messages.
 
 =over
-
-
-=item libpng error: %s\n
-
-(F) 
-An error from libpng sent via Perl's warning handler.
-
-
-
-
-=item libpng warning: %s\n
-
-(W) 
-A warning from libpng sent via Perl's warning handler.
-
-
-
-
-=item %s:%d: Call to calloc for %d '%s' failed: out of memory
-
-(F) 
-A request for more memory was refused. The first two parameters are the file name and line number of where this happened.
-
-
-
-
-=item Memory leak detected: there are %d allocated pieces of memory which have not been freed.\n
-
-(W) 
-The module's internal check for memory errors was tripped somehow. This probably indicates a bug in the module.
-
-
-
-
-=item Attempt to destroy an object of unknown type
-
-(F) 
-There was an attempt to free some corrupted memory.
-
-
-
-
-=item According to its compression type, a text chunk in the current PNG file claims to be ITXT but Perl's 'is_utf8_string' says that its encoding is invalid.
-
-(W) 
-
-
-
-=item A language key 'lang_key' member of a 'png_text' structure in the file failed Perl's 'is_utf8_string' test, which says that its encoding is invalid.
-
-(W) 
-
-
-
-=item None of your text chunks was allowed
-
-(W) 
-The user tried to set some text chunks in the image but they were not allowed.
-
-
-
-
-=item Trying to read from a PNG in memory but there is no PNG in memory
-
-(F) 
-Something went wrong trying to read a PNG from a Perl scalar. This probably indicates a bug in the program.
-
-
-
-
-=item Request for too many bytes %d on a scalar of length %d at read position %d.\n
-
-(F) 
-There was an attempt to read some data from a Perl scalar which went beyond the expected end of the scalar in memory.
-
-
-
-
-=item set_IHDR: Bad values for width (%d), height (%d), or bit depth (%d)
-
-(F) 
-The user tried to set a PNG header with unacceptable values, as indicated.
-
-
-
-
-=item set_PLTE: Empty array of colours in set_PLTE
-
-(F) 
-The user tried to set an empty palette of colours.
-
-
-
-
-=item Too many transparencies %d supplied
-
-(F) 
-The user tried to set more than the maximum possible number of transparencies for a paletted image.
-
-
-
-
-=item Image has no height
-
-(F) 
-The height of the image is zero.
-
-
-
-
-=item Image has no rows
-
-(F) 
-The image does not have any rows of image data.
-
-
-
-
-=item Image rows have zero length
-
-(F) 
-The rows of image data have zero length.
-
-
-
-
-=item Image has zero height
-
-(F) 
-The image we are trying to read has zero height.
-
-
-
-
-=item Out of memory allocating %d bytes for image
-
-(F) 
-We were refused the memory we want to read the image into.
-
-
-
-
-=item Row pointers already allocated
-
-(F) 
-There was an attempt to set the rows of an image after they had already been set.
-
-
-
-
-=item Chunk name '%s' has wrong number of characters: %d required
-
-(F) 
-We tried to set an unknown chunk with a name which doesn't have four characters.
-
-
-
-
-=item Number of unknown chunks is zero
-
-(F) 
-The user tried to set an empty list of unknown chunks.
-
-
-
-
-=item Illegal PNG chunk name length, chunk names must be %d characters long
-
-(W) 
-The user's name for a private chunk was not a valid length. In this case the chunk is ignored.
-
-
-
-
-=item Unknown chunk location is zero, which means 'don't write the chunk'
-
-(W) 
-The user supplied a value for "location" of zero, which means "don't write the chunk".
-
-
-
-
-=item undefined chunk name at offset %d in chunk list
-
-(F) 
-
-
-
-=item chunk %i has bad length %d: should be %d in chunk list
-
-(F) 
-
-
-
-=item set_keep_unknown_chunks is not supported in your libpng
-
-(F) 
-libpng was compiled without this option.
-
-
-
+[% FOR diagnostic IN libpng_diagnostics %]
+
+=item [% diagnostic.message %]
+
+(
+[%- IF diagnostic.type == "error" -%]
+F
+[%- ELSIF diagnostic.type == "warn" -%]
+W
+[%- END -%]
+) [% IF diagnostic.comment %]
+[% diagnostic.comment %]
+[% END %]
+
+[% END %]
 
 =back
 
@@ -1334,13 +835,11 @@ let me know and I'll consider adding that facility to the module.
 
 =head1 SEE ALSO
 
-=head2 The PNG specification
+=head2 [% pngspec %]
 
-L<The PNG specification|http://www.w3.org/TR/PNG/> (link to W3
-consortium) explains the details of the PNG format.
+[% INCLUDE "pngspec" %]
 
-
-=head2 The libpng documentation
+=head2 [% libpngdoc %]
 
 =head3 "Official" documentation
 
@@ -1367,130 +866,13 @@ by actually looking at the libpng source code. These pages are usually
 the first hits on search engines if you search for a function name in
 libpng.
 
-=head2 Other Perl modules on CPAN
+[% INCLUDE "other_modules" %]
 
-=head3 Image::ExifTool
+[% INCLUDE "examples_doc" %]
 
-L<Image::ExifTool> is a pure Perl (doesn't require a C compiler)
-solution for accessing the text segments of images. It has extensive
-support for PNG text segments.
-
-=head3 Alien::PNG
-
-L<Alien::PNG> claims to be a way of "building, finding and using PNG
-binaries". It may help in installing libpng. I didn't use it as a
-dependency for this module because it seems not to work in batch mode,
-but stop and prompt the user. I'm interested in hearing feedback from
-users whether this works or not on various platforms.
-
-=head3 Image::PNG::Rewriter
-
-L<Image::PNG::Rewriter> is a utility for unpacking and recompressing
-the IDAT (image data) part of a PNG image. The main purpose seems to
-be to recompress the image data with the module author's other module
-L<Compress::Deflate7>. Unfortunately that only works with Perl
-versions 5.12.
-
-=head3 Image::Pngslimmer
-
-L<Image::Pngslimmer> reduces the size of dynamically created PNG
-images. It's very, very slow at reading PNG data, but seems to work
-OK.
-
-=head3 Image::Info
-
-L<Image::Info> is a module for getting information out of various
-types of images. It has good support for PNG and is written in pure
-Perl (doesn't require a C compiler). As well as basics such as height,
-width, and colour type, it can get text chunks, modification time,
-palette, gamma (gAMA chunk), resolution (pHYs chunk), and significant
-bits (sBIT chunk). At the time of writing (version 1.31) it doesn't
-support other chunks.
-
-
-
-=head1 EXAMPLES
-
-There is a collection of example scripts online at L<http://www.lemoda.net/image-png/>. This currently contains
-
-=over
-
-=item PNG inspector L<http://www.lemoda.net/png/inspect/>
-
-This downloads a PNG file you specify from the internet and prints out
-its contents.
-
-=item PNG quantizer L<http://www.lemoda.net/png/quantize/>
-
-This downloads a PNG file you specify from the internet and quantizes
-it with as many colours as you want (from two to 256) in order to
-reduce its size. The quantized image is uploaded to imgur.com using
-L<WWW::Imgur>.
-
-=back
-
-
-
-=head1 AUTHOR
-
-Ben Bullock, <bkb@cpan.org>
-
-=head1 COPYRIGHT & LICENCE
-
-The Image::PNG package and associated files are copyright (C)
-2011 Ben Bullock.
-
-You can use, copy, modify and redistribute Image::PNG and
-associated files under the Perl Artistic Licence or the GNU General
-Public Licence.
-
-=head1 SUPPORT
-
-=head2 Mailing list
-
-There is a mailing list at
-L<http://groups.google.com/group/perlimagepng>. You don't need to be a
-member of the list to post messages to the list or participate in
-discussions. Your messages may be held for moderation though.
-
-If you have anything at all to say about the module, whether it is bug
-reports, feature requests, or anything else, I'd prefer to discuss it
-on the mailing list because that way there is a public record which
-everyone can access, rather than being restricted to email. That means
-that, for example, if someone else takes over maintaining this module,
-they can easily access records of previous discussions.
-
-=head2 CPAN stuff
-
-There is a bug tracker at .
-
-=head1 FOR PROGRAMMERS
-
-(This section is only for people who want to fix a bug or add an
-improvement to this module, and who want to share the change with
-other people by adding it to the public version of this module.)
-
-If you want to alter this module, note very carefully that the
-distributed files are not actually the source code of the module. The
-source code lives in the "tmpl" directory of the distribution and the
-distribution is created via scripts.
-
-The original files of this distribution make very heavy use of the
-L<Template> Perl module in order to cut down the amount of repetitive
-stuff which needs to be put into various source and documentation
-files. If you plan to alter the C file, you may also need a program
-called "cfunctions" which you can download from sourceforge, which
-generates the header file perl-libpng.h from perl-libpng.c.
-
-
+[% INCLUDE "author" %]
 
 =cut
-
-# Local Variables:
-# mode: perl
-# End:
-
-
 
 # Local Variables:
 # mode: perl

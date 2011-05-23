@@ -1,19 +1,12 @@
 {
     "name": "Image::PNG",
     "abstract": "Read and write PNG (Portable Network Graphics) files",
-    "version": "0.03",
+    "version": "0.04",
     "author": [
         "Ben Bullock <bkb@cpan.org>",
     ],
     "license": [ "perl" ],
-    "resources": {
-        "homepage": "http://www.lemoda.net/projects/image-png/index.html",
-        "repository": {
-            "type": "git",
-            "web": "http://www.lemoda.net/projects/image-png/Image-PNG.git",
-        }
-    }
+    "no_index": {
+        "directory": ["t", "inc", "tmpl", "build"]
+    },
 }
-
-
-
