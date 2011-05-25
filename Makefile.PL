@@ -195,7 +195,7 @@ EOF
 
 WriteMakefile (
     NAME         => 'Image::PNG',
-    VERSION      => '0.05',
+    VERSION      => '0.06',
     OBJECT       => 'Libpng.o perl-libpng.o',
     LIBS         => $libs,
     INC          => $inc,
