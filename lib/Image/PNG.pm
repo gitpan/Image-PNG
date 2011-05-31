@@ -9,7 +9,7 @@ use warnings;
 use strict;
 use Carp;
 
-our $VERSION = 0.06;
+our $VERSION = 0.07;
 
 
 sub error
@@ -93,7 +93,7 @@ sub Image::PNG::read
         print "I am going to try to read a file called '$file_name'.\n";
     }
     if (! defined $file_name) {
-        carp __PACKAGE__, ": You called 'read_file' without giving a file name";
+        carp __PACKAGE__, ": You called 'read' without giving a file name";
         return;
     }
     my $read = Image::PNG::Container->new ({read_only => 1});

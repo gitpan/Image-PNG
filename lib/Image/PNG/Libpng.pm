@@ -84,7 +84,7 @@ require DynaLoader;
 );
 
 require XSLoader;
-our $VERSION = 0.06;
+our $VERSION = 0.07;
 
 XSLoader::load('Image::PNG', $VERSION);
 
@@ -241,7 +241,7 @@ a routine which reads data from Perl scalars. It then uses
 C<png_read_png> to read all the data.
 
 The C function which does this is called C<perl_png_scalar_read>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.06/perl-libpng.c>.
+L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.07/perl-libpng.c>.
 
 See also L</Input/output manipulation functions>.
 
@@ -271,7 +271,7 @@ uses C<png_set_write_fn> to set the writing function of C<$png> to be
 its own function, which writes data to the Perl scalar.
 
 The C function which does this is called C<perl_png_scalar_write>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.06/perl-libpng.c>.
+L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.07/perl-libpng.c>.
 
 See also L</Input/output manipulation functions>.
 
@@ -1013,6 +1013,95 @@ filter types.
 This function corresponds to C<png_set_filter> with the second (unused)
 argument omitted. See L<Unused arguments omitted>.
 
+=head2 get_bKGD
+
+Get the bKGD (background) chunk of the image.
+
+=head3 Correspondence to libpng
+
+This function corresponds to C<png_get_bKGD> with a hash function instead of a
+C<png_color> struct.
+
+=head2 set_bKGD
+
+Set the bKGD (background) chunk of the image.
+
+=head3 Correspondence to libpng
+
+This function corresponds to C<png_set_bKGD> with a hash function instead of a
+C<png_color> struct.
+
+=head2 get_cHRM
+
+Get the cHRM chunk as a hash.
+
+The keys of the hash are
+
+=over
+
+=item white_x
+
+=item white_y
+
+=item red_x
+
+=item red_y
+
+=item green_x
+
+=item green_y
+
+=item blue_x
+
+=item blue_y
+
+=back
+
+The values of the hash are floating point numbers between 0 and 1.
+
+See section "4.2.2.2. cHRM Primary chromaticities" of the PNG specification.
+
+=head3 Correspondence to libpng
+
+This function corresponds to C<png_get_cHRM> with a hash function instead of the C<double>
+arguments. The hash key names correspond to the names of the C<double>
+arguments in libpng.
+
+=head2 set_cHRM
+
+Set the cHRM chunk from a hash.
+
+The keys of the hash are
+
+=over
+
+=item white_x
+
+=item white_y
+
+=item red_x
+
+=item red_y
+
+=item green_x
+
+=item green_y
+
+=item blue_x
+
+=item blue_y
+
+=back
+
+The values of the hash are floating point numbers between 0 and 1.
+
+See section "4.2.2.2. cHRM Primary chromaticities" of the PNG specification.
+
+=head3 Correspondence to libpng
+
+This function corresponds to C<png_set_cHRM> with a hash function instead of the C<double>
+arguments.
+
 =head1 EXPORTS
 
 Nothing is exported by default, but all the functions in this module
@@ -1046,7 +1135,7 @@ instances of unevaluated arguments, which have all been eliminated
 from this module.
 
 If you are interested in exactly which libpng arguments are omitted,
-you can find each instance L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.06/perl-libpng.c> in the macro
+you can find each instance L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.07/perl-libpng.c> in the macro
 C<UNUSED_ZERO_ARG>.
 
 =head2 Function return values are used to return values

@@ -189,133 +189,133 @@ void perl_png_set_PLTE (perl_libpng_t * png , AV * perl_colors );
 #line 1123 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_PLTE_pointer (perl_libpng_t * png , png_colorp colors , int n_colors );
 
-#line 1156 "tmpl/perl-libpng.c.tmpl"
+#line 1171 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_bKGD (perl_libpng_t * png );
 
-#line 1167 "tmpl/perl-libpng.c.tmpl"
+#line 1185 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_bKGD (perl_libpng_t * png , HV * bKGD );
 
-#line 1171 "tmpl/perl-libpng.c.tmpl"
-SV * perl_png_get_cHRM (perl_libpng_t * png );
-
-#line 1181 "tmpl/perl-libpng.c.tmpl"
-void perl_png_set_cHRM (perl_libpng_t * png , HV * cHRM );
-
-#line 1185 "tmpl/perl-libpng.c.tmpl"
+#line 1193 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_pCAL (perl_libpng_t * png );
 
-#line 1195 "tmpl/perl-libpng.c.tmpl"
+#line 1203 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_pCAL (perl_libpng_t * png , HV * pCAL );
 
-#line 1199 "tmpl/perl-libpng.c.tmpl"
+#line 1207 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_sPLT (perl_libpng_t * png );
 
-#line 1209 "tmpl/perl-libpng.c.tmpl"
+#line 1217 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_sPLT (perl_libpng_t * png , HV * sPLT );
 
-#line 1213 "tmpl/perl-libpng.c.tmpl"
+#line 1221 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_gAMA (perl_libpng_t * png );
 
-#line 1223 "tmpl/perl-libpng.c.tmpl"
+#line 1231 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_gAMA (perl_libpng_t * png , HV * gAMA );
 
-#line 1227 "tmpl/perl-libpng.c.tmpl"
+#line 1235 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_iCCP (perl_libpng_t * png );
 
-#line 1237 "tmpl/perl-libpng.c.tmpl"
+#line 1245 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_iCCP (perl_libpng_t * png , HV * iCCP );
 
-#line 1241 "tmpl/perl-libpng.c.tmpl"
+#line 1249 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_tRNS (perl_libpng_t * png );
 
-#line 1251 "tmpl/perl-libpng.c.tmpl"
+#line 1259 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_tRNS (perl_libpng_t * png , HV * tRNS );
 
-#line 1255 "tmpl/perl-libpng.c.tmpl"
+#line 1263 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_tRNS_pointer (perl_libpng_t * png , png_bytep trans , int num_trans );
 
-#line 1260 "tmpl/perl-libpng.c.tmpl"
+#line 1268 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_sCAL (perl_libpng_t * png );
 
-#line 1270 "tmpl/perl-libpng.c.tmpl"
+#line 1278 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_sCAL (perl_libpng_t * png , HV * sCAL );
 
-#line 1274 "tmpl/perl-libpng.c.tmpl"
+#line 1286 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_sBIT (perl_libpng_t * png );
 
-#line 1284 "tmpl/perl-libpng.c.tmpl"
+#line 1298 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_sBIT (perl_libpng_t * png , HV * sBIT );
 
-#line 1288 "tmpl/perl-libpng.c.tmpl"
+#line 1305 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_oFFs (perl_libpng_t * png );
 
-#line 1299 "tmpl/perl-libpng.c.tmpl"
+#line 1323 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_oFFs (perl_libpng_t * png , HV * oFFs );
 
-#line 1303 "tmpl/perl-libpng.c.tmpl"
+#line 1334 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_pHYs (perl_libpng_t * png );
 
-#line 1313 "tmpl/perl-libpng.c.tmpl"
+#line 1351 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_pHYs (perl_libpng_t * png , HV * pHYs );
 
-#line 1319 "tmpl/perl-libpng.c.tmpl"
+#line 1364 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_tRNS_palette (perl_libpng_t * png );
 
-#line 1349 "tmpl/perl-libpng.c.tmpl"
+#line 1394 "tmpl/perl-libpng.c.tmpl"
 int perl_png_get_sRGB (perl_libpng_t * png );
 
-#line 1361 "tmpl/perl-libpng.c.tmpl"
+#line 1406 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_sRGB (perl_libpng_t * png , int sRGB );
 
-#line 1365 "tmpl/perl-libpng.c.tmpl"
+#line 1410 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_valid (perl_libpng_t * png );
 
-#line 1391 "tmpl/perl-libpng.c.tmpl"
+#line 1436 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_rows (perl_libpng_t * png );
 
-#line 1443 "tmpl/perl-libpng.c.tmpl"
+#line 1488 "tmpl/perl-libpng.c.tmpl"
 void perl_png_read_image (perl_libpng_t * png );
 
-#line 1474 "tmpl/perl-libpng.c.tmpl"
+#line 1519 "tmpl/perl-libpng.c.tmpl"
 void * perl_png_get_row_pointers (perl_libpng_t * png );
 
-#line 1489 "tmpl/perl-libpng.c.tmpl"
+#line 1534 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_row_pointers (perl_libpng_t * png , void * row_pointers );
 
-#line 1497 "tmpl/perl-libpng.c.tmpl"
+#line 1542 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_rows (perl_libpng_t * png , AV * rows );
 
-#line 1539 "tmpl/perl-libpng.c.tmpl"
+#line 1584 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_verbosity (perl_libpng_t * png , int verbosity );
 
-#line 1548 "tmpl/perl-libpng.c.tmpl"
+#line 1593 "tmpl/perl-libpng.c.tmpl"
 void perl_png_handle_undefined (perl_libpng_t * png , int die , int raise );
 
-#line 1557 "tmpl/perl-libpng.c.tmpl"
+#line 1602 "tmpl/perl-libpng.c.tmpl"
 void perl_png_handle_error (perl_libpng_t * png , int die , int raise );
 
-#line 1583 "tmpl/perl-libpng.c.tmpl"
+#line 1628 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_unknown_chunks (perl_libpng_t * png );
 
-#line 1632 "tmpl/perl-libpng.c.tmpl"
+#line 1679 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_unknown_chunks (perl_libpng_t * png , AV * chunk_list );
 
-#line 1701 "tmpl/perl-libpng.c.tmpl"
+#line 1748 "tmpl/perl-libpng.c.tmpl"
 int perl_png_supports (const char * what );
 
-#line 1718 "tmpl/perl-libpng.c.tmpl"
+#line 1765 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_keep_unknown_chunks (perl_libpng_t * png , int keep , SV * chunk_list );
 
-#line 1787 "tmpl/perl-libpng.c.tmpl"
+#line 1834 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_expand (perl_libpng_t * png );
 
-#line 1793 "tmpl/perl-libpng.c.tmpl"
+#line 1840 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_gray_to_rgb (perl_libpng_t * png );
 
-#line 1799 "tmpl/perl-libpng.c.tmpl"
+#line 1846 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_filler (perl_libpng_t * png , int filler , int flags );
 
-#line 1805 "tmpl/perl-libpng.c.tmpl"
+#line 1852 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_strip_16 (perl_libpng_t * png );
+
+#line 1857 "tmpl/perl-libpng.c.tmpl"
+SV * perl_png_get_cHRM (perl_libpng_t * png );
+
+#line 1892 "tmpl/perl-libpng.c.tmpl"
+void perl_png_set_cHRM (perl_libpng_t * png , HV * cHRM );
 
 #endif /* CFH_PERL_LIBPNG_H */
