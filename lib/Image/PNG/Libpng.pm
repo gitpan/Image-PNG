@@ -84,7 +84,7 @@ require DynaLoader;
 );
 
 require XSLoader;
-our $VERSION = 0.07;
+our $VERSION = 0.08;
 
 XSLoader::load('Image::PNG', $VERSION);
 
@@ -241,7 +241,7 @@ a routine which reads data from Perl scalars. It then uses
 C<png_read_png> to read all the data.
 
 The C function which does this is called C<perl_png_scalar_read>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.07/perl-libpng.c>.
+L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.08/perl-libpng.c>.
 
 See also L</Input/output manipulation functions>.
 
@@ -271,7 +271,7 @@ uses C<png_set_write_fn> to set the writing function of C<$png> to be
 its own function, which writes data to the Perl scalar.
 
 The C function which does this is called C<perl_png_scalar_write>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.07/perl-libpng.c>.
+L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.08/perl-libpng.c>.
 
 See also L</Input/output manipulation functions>.
 
@@ -1135,7 +1135,7 @@ instances of unevaluated arguments, which have all been eliminated
 from this module.
 
 If you are interested in exactly which libpng arguments are omitted,
-you can find each instance L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.07/perl-libpng.c> in the macro
+you can find each instance L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.08/perl-libpng.c> in the macro
 C<UNUSED_ZERO_ARG>.
 
 =head2 Function return values are used to return values
@@ -1500,21 +1500,22 @@ support other chunks.
 
 =head1 EXAMPLES
 
-There is a collection of example scripts online at L<http://www.lemoda.net/image-png/>. This currently contains
+There is a collection of demonstrations and example scripts online at
+L<http://www.lemoda.net/image-png/>. This currently contains
 
 =over
 
 =item PNG inspector L<http://www.lemoda.net/png/inspect/>
 
-This downloads a PNG file you specify from the internet and prints out
-its contents.
+This demonstration downloads a PNG file you specify from the internet
+and prints out its contents.
 
 =item PNG quantizer L<http://www.lemoda.net/png/quantize/>
 
-This downloads a PNG file you specify from the internet and quantizes
-it with as many colours as you want (from two to 256) in order to
-reduce its size. The quantized image is uploaded to imgur.com using
-L<WWW::Imgur>.
+This demonstration downloads a PNG file you specify from the internet
+and quantizes it with as many colours as you want (from two to 256) in
+order to reduce its size. The quantized image is uploaded to imgur.com
+using L<WWW::Imgur>.
 
 =back
 

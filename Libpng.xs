@@ -356,7 +356,7 @@ SV * perl_png_get_gAMA (Png)
 
 void perl_png_set_gAMA (Png, gAMA)
         Image::PNG::Libpng::t * Png
-        HV * gAMA
+        double gAMA
         CODE:
         perl_png_set_gAMA (Png, gAMA);
         OUTPUT:

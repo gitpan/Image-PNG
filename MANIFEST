@@ -5,6 +5,7 @@ MANIFEST.SKIP
 META.json
 META.yml
 Makefile.PL
+README
 build/ImagePNGBuild.pm
 build/LibpngInfo.pm
 build/make-files.pl
@@ -28,6 +29,8 @@ t/cHRM.t
 t/ccwn2c08.png
 t/cdun2c08.png
 t/pHYs.t
+t/saru-fs8.png
+t/tRNS.t
 t/tantei-san.png
 t/test.png
 t/with-text.png

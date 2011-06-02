@@ -3,3 +3,5 @@ libpng-tests/*
 t/*
 oneoff/*
 .cleanok
+.git
+xt/*
