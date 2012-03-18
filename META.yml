@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: 'Image::PNG'
-version: 0.08
+version: 0.09
 abstract: 'Read and write PNG (Portable Network Graphics) files'
 author:
     - Ben Bullock <bkb@cpan.org>
@@ -17,3 +17,5 @@ no_index:
         - inc
         - tmpl
         - build
+resources:
+    MailingList: http://groups.google.com/group/perlimagepng

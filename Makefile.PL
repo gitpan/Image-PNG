@@ -3,6 +3,7 @@ use warnings;
 use ExtUtils::MakeMaker;
 use ExtUtils::Constant;
 
+use 5.008001;
 
 # This Makefile.PL uses $Config{ldflags} and $Config{ccflags} when it
 # tries to compile a small program which links against libpng.
@@ -197,7 +198,7 @@ EOF
 
 WriteMakefile (
     NAME         => 'Image::PNG',
-    VERSION      => '0.08',
+    VERSION      => '0.09',
     OBJECT       => 'Libpng.o perl-libpng.o',
     LIBS         => $libs,
     INC          => $inc,

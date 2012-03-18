@@ -403,6 +403,7 @@ our @chunks = (
     name => 'tIME',
     in_valid => 1,
     auto_type => 'sv',
+    no_init => 1,
 },
 
 {

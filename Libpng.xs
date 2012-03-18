@@ -504,7 +504,7 @@ SV * perl_png_get_tIME (Png)
         OUTPUT:
         RETVAL
 
-void perl_png_set_tIME (Png, tIME)
+void perl_png_set_tIME (Png, tIME = NO_INIT)
         Image::PNG::Libpng::t * Png
         SV * tIME
         CODE:

@@ -161,7 +161,7 @@ push @mani, 'makeitfile';
 
 my $output = 'MANIFEST';
 if (-f $output) {
-chmod 0644, $output;
+    chmod 0644, $output;
 }
 open my $out, '>', $output;
 for my $file (sort @mani) {

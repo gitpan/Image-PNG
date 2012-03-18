@@ -1,13 +1,13 @@
-/* This is a Cfunctions (version 0.27) generated header file.
+/* This is a Cfunctions (version 0.28) generated header file.
    Cfunctions is a free program for extracting headers from C files.
-   Get Cfunctions from `http://cfunctions.sourceforge.net/'. */
+   Get Cfunctions from 'http://www.lemoda.net/cfunctions/'. */
 
 /* This file was generated with:
-`cfunctions -i -n -c perl-libpng.c' */
+'cfunctions -i -n -c perl-libpng.c' */
 #ifndef CFH_PERL_LIBPNG_H
 #define CFH_PERL_LIBPNG_H
 
-/* From `perl-libpng.c': */
+/* From 'perl-libpng.c': */
 
 #line 13 "tmpl/perl-libpng.c.tmpl"
 typedef struct perl_libpng {
@@ -15,42 +15,40 @@ typedef struct perl_libpng {
     png_infop info;
     png_infop end_info;
     enum {perl_png_unknown_obj, perl_png_read_obj, perl_png_write_obj} type;
-    
+    /* Allocated memory which holds the rows. */
     png_bytepp  row_pointers;
-    
+    /* Allocated memory which holds the image data. */
     png_bytep image_data;
-    
+    /* Number of times we have called calloc. */
     int memory_gets;
 
-    
+    /* Jive for reading from a scalar */
 
-    
+    /* Points to the raw data from a Perl scalar. */
     void * scalar_data;
-    
+    /* Contains what Perl says the length of the data in "image_data"
+       is. */
     int data_length;
-    
+    /* How much of the data in "image_data" we have read. */
     int read_position;
 
 
-    
+    /* If the following variable is set to a true value, the module
+       prints messages about what it is doing. */
     int verbosity : 1;
-    
+    /* If the following variable is set to a true value, the module
+       raises an error (die) if there is an error other than something
+       being undefined. */
     int raise_errors : 1;
-    
+    /* Print error messages. */
     int print_errors : 1;
-    
+    /* Raise an error (die) if something is undefined. */
     int raise_undefined : 1;
-    
+    /* Print a message on STDERR if something is undefined. */
     int print_undefined : 1;
-} 
-
-#line 54 "tmpl/perl-libpng.c.tmpl"
+}
 perl_libpng_t;
-
-#line 56 "tmpl/perl-libpng.c.tmpl"
 typedef perl_libpng_t Image__PNG__Libpng__t;
-
-#line 58 "tmpl/perl-libpng.c.tmpl"
 typedef perl_libpng_t * Image__PNG__Libpng;
 
 #line 220 "tmpl/perl-libpng.c.tmpl"

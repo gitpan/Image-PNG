@@ -1,13 +1,13 @@
-/* This is a Cfunctions (version 0.27) generated header file.
+/* This is a Cfunctions (version 0.28) generated header file.
    Cfunctions is a free program for extracting headers from C files.
-   Get Cfunctions from `http://cfunctions.sourceforge.net/'. */
+   Get Cfunctions from 'http://www.lemoda.net/cfunctions/'. */
 
 /* This file was generated with:
-`cfunctions -i -n -c my-xs.c' */
+'cfunctions -i -n -c my-xs.c' */
 #ifndef CFH_MY_XS_H
 #define CFH_MY_XS_H
 
-/* From `my-xs.c': */
+/* From 'my-xs.c': */
 
 #line 1 "my-xs.c"
 #define HASH_FETCH(hash,field)     {                            \

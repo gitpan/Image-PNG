@@ -326,7 +326,9 @@ SV * perl_png_get_[% chunk.name %] (Png)
         OUTPUT:
         RETVAL
 
-void perl_png_set_[% chunk.name %] (Png, [% chunk.name %])
+void perl_png_set_[% chunk.name %] (Png, [% chunk.name %]
+[%- IF chunk.no_init %] = NO_INIT[%- END -%]
+)
         [% config.base %]::Libpng::t * Png
         [%- IF chunk.auto_type == "sv" ||chunk.auto_type == "av" ||chunk.auto_type == "hv" %]
         [% chunk.auto_type | upper %] * [% chunk.name %]
