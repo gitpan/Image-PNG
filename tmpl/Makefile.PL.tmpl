@@ -199,6 +199,7 @@ EOF
 WriteMakefile (
     NAME         => '[% config.base %]',
     VERSION      => '[% config.version %]',
+    ABSTRACT     => '[% config.abstract %]',
     OBJECT       => 'Libpng.o perl-libpng.o',
     LIBS         => $libs,
     INC          => $inc,
@@ -276,7 +277,7 @@ lib/[% config.out_dir %]/Const.pm:      tmpl/Const.pm.tmpl build/strip-constants
 	build/strip-constants.pl
 EOF
 
-}   
+    }   
     return $cfunctions_build;
 }
 

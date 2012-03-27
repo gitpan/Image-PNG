@@ -504,7 +504,7 @@ SV * perl_png_get_tIME (Png)
         OUTPUT:
         RETVAL
 
-void perl_png_set_tIME (Png, tIME = NO_INIT)
+void perl_png_set_tIME (Png, tIME =  0)
         Image::PNG::Libpng::t * Png
         SV * tIME
         CODE:
@@ -528,3 +528,4 @@ void perl_png_set_tRNS (Png, tRNS)
 
 
 #line 243 "Libpng.xs.tmpl"
+

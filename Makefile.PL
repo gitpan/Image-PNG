@@ -198,7 +198,8 @@ EOF
 
 WriteMakefile (
     NAME         => 'Image::PNG',
-    VERSION      => '0.09',
+    VERSION      => '0.10',
+    ABSTRACT     => 'Read and write PNG (Portable Network Graphics) files',
     OBJECT       => 'Libpng.o perl-libpng.o',
     LIBS         => $libs,
     INC          => $inc,
@@ -276,7 +277,7 @@ lib/Image/PNG/Const.pm:      tmpl/Const.pm.tmpl build/strip-constants.pl
 	build/strip-constants.pl
 EOF
 
-}   
+    }   
     return $cfunctions_build;
 }
 
