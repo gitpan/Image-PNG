@@ -1,7 +1,7 @@
 {
     "name": "Image::PNG",
     "abstract": "Read and write PNG (Portable Network Graphics) files",
-    "version": "0.10",
+    "version": "0.11",
     "author": [
         "Ben Bullock <bkb@cpan.org>"
     ],

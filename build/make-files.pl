@@ -150,6 +150,7 @@ t/bKGD.t
 t/cHRM.t
 t/pHYs.t
 t/tRNS.t
+t/tIME.t
 README
 !;
 my @mani;

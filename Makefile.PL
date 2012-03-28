@@ -198,7 +198,7 @@ EOF
 
 WriteMakefile (
     NAME         => 'Image::PNG',
-    VERSION      => '0.10',
+    VERSION      => '0.11',
     ABSTRACT     => 'Read and write PNG (Portable Network Graphics) files',
     OBJECT       => 'Libpng.o perl-libpng.o',
     LIBS         => $libs,
