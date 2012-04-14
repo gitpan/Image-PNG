@@ -221,7 +221,7 @@ EOF
 
 WriteMakefile (
     NAME         => 'Image::PNG',
-    VERSION      => '0.14',
+    VERSION      => '0.15',
     ABSTRACT     => 'Read and write PNG files',
     OBJECT       => 'Libpng.o perl-libpng.o',
     LIBS         => $libs,
@@ -233,6 +233,9 @@ WriteMakefile (
             "MailingList" => "http://groups.google.com/group/perlimagepng",
             "bugtracker" => "https://github.com/benkasminbullock/Image-PNG/issues",
             "repository" => "https://github.com/benkasminbullock/Image-PNG",
+        },
+        no_index => {
+            directory => ['tmpl', 'build'],
         },
     },
 );
