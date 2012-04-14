@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name: 'Image::PNG'
-version: 0.12
+version: 0.13
 abstract: 'Read and write PNG files'
 author:
     - Ben Bullock <bkb@cpan.org>
