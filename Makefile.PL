@@ -221,14 +221,20 @@ EOF
 
 WriteMakefile (
     NAME         => 'Image::PNG',
-    VERSION      => '0.13',
+    VERSION      => '0.14',
     ABSTRACT     => 'Read and write PNG files',
     OBJECT       => 'Libpng.o perl-libpng.o',
     LIBS         => $libs,
     INC          => $inc,
     AUTHOR => 'Ben Bullock <bkb@cpan.org>',
     LICENSE => 'perl',
-    NO_META => 1,
+    META_MERGE => {
+        resources => {
+            "MailingList" => "http://groups.google.com/group/perlimagepng",
+            "bugtracker" => "https://github.com/benkasminbullock/Image-PNG/issues",
+            "repository" => "https://github.com/benkasminbullock/Image-PNG",
+        },
+    },
 );
 
 my @names = (qw());

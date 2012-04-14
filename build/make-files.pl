@@ -30,8 +30,6 @@ my @files = qw/
                   Libpng.pm
                   Libpng.t
                   Libpng.xs
-                  META.json
-                  META.yml
                   Makefile.PL
                   PLTE.t
                   PNG.pm
@@ -129,7 +127,6 @@ my @extras = qw!
 my-xs.c
 tmpl/author
 tmpl/config
-tmpl/Const.pm.tmpl
 tmpl/examples_doc
 tmpl/generated
 tmpl/libpng_doc
