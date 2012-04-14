@@ -1,7 +1,7 @@
 {
     "name": "Image::PNG",
-    "abstract": "Read and write PNG (Portable Network Graphics) files",
-    "version": "0.11",
+    "abstract": "Read and write PNG files",
+    "version": "0.12",
     "author": [
         "Ben Bullock <bkb@cpan.org>"
     ],
@@ -9,5 +9,13 @@
     "no_index": {
         "directory": ["t", "inc", "tmpl", "build"]
     },
-    "resources": "http://groups.google.com/group/perlimagepng"
+    "resources": {
+        "MailingList": "http://groups.google.com/group/perlimagepng",
+        "bugtracker": {
+            "web" : "https://github.com/benkasminbullock/Image-PNG/issues"
+        }
+        "repository": {
+            "url": "https://github.com/benkasminbullock/Image-PNG"
+        }
+    }
 }

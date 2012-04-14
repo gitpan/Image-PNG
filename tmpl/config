@@ -1,9 +1,11 @@
-version: 0.11
+version: 0.12
 base: Image::PNG
 author: Ben Bullock
 author_pause: BKB
 email: bkb@cpan.org
 year: 2012
-abstract: Read and write PNG (Portable Network Graphics) files
+abstract: Read and write PNG files
 license: perl
 MailingList: http://groups.google.com/group/perlimagepng
+rt: https://github.com/benkasminbullock/Image-PNG/issues
+repo: https://github.com/benkasminbullock/Image-PNG

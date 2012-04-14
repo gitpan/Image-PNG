@@ -9,7 +9,7 @@ use warnings;
 use strict;
 use Carp;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 
 sub error
@@ -52,11 +52,15 @@ sub write_info_error
     }
 }
 
+# Return the verbosity.
+
 sub verbose
 {
     my ($png) = @_;
     return $png->{verbosity};
 }
+
+# Set the verbosity.
 
 sub verbosity
 {
@@ -67,11 +71,14 @@ sub verbosity
     $png->{verbosity} = 1;
 }
 
+# Make the object.
+
 sub new
 {
     my ($package, $options) = @_;
     my $png = {};
     bless $png;
+    # Set the read data to empty.
     $png->{read} = undef;
     # The marker "error_string" contains the most recent error.
     $png->{error_string} = '';
@@ -85,6 +92,8 @@ sub new
     }
     return $png;
 }
+
+# Read a file
 
 sub Image::PNG::read
 {
@@ -165,7 +174,7 @@ sub Image::PNG::write
             if ($png->verbose) {
                 print "I am setting the image data for the image to write to data which I read in from another image.";
             }
-            my $rows = Image::PNG::Libpng::get_rows ($png->{read_png});
+            my $rows = Image::PNG::Libpng::get_rows ($png->{read}->png ());
             if ($png->verbose) {
                 print "I've got the data from the read image and now I'm going to set up the writing to write that data.\n";
             }
@@ -177,8 +186,9 @@ sub Image::PNG::write
             return;
         }
     }
-    printf ("Its colour type is %s.\n", Image::PNG::Libpng::color_type_name ($write->{ihdr}->{color_type}));
-
+    if ($png->verbose) {
+        printf ("Its colour type is %s.\n", Image::PNG::Libpng::color_type_name ($write->{ihdr}->{color_type}));
+    }
     if ($write->{ihdr}->{color_type} == PNG_COLOR_TYPE_PALETTE) {
         if ($png->verbose) {
             print "The image you want to write has a palette, so I am going to check whether the palette is ready to be written.\n";
@@ -187,7 +197,7 @@ sub Image::PNG::write
             print "The image doesn't have a palette set.\n";
             if ($png->{read}) {
                 print "I am going to try to get one from the image I read in.\n";
-                my $palette = Image::PNG::Libpng::get_PLTE ($png->{read_png});
+                my $palette = Image::PNG::Libpng::get_PLTE ($png->{read}->png ());
                 for my $color (@$palette) {
                     for my $hue (qw/red green blue/) {
                         printf "%s: %d ", $hue, $color->{$hue};
@@ -298,7 +308,7 @@ sub IHDR
         $png->{write}->{ihdr_set} = 1;
     }
     else {
-        $ihdr = Image::PNG::Libpng::get_IHDR ($png->{read_png});
+        $ihdr = Image::PNG::Libpng::get_IHDR ($png->{read}->png ());
     }
     return $ihdr;
 }
@@ -315,6 +325,8 @@ sub get_IHDR
     $png->{IHDR} = Image::PNG::Libpng::get_IHDR ($png->{read}->png ());
 }
 
+# Get $key from the PNG.
+
 sub get
 {
     my ($png, $key) = @_;
@@ -323,6 +335,8 @@ sub get
     }
     return $png->{IHDR}->{$key};
 }
+
+# Get/set width of PNG
 
 sub width
 {
@@ -334,6 +348,8 @@ sub width
         return get ($png, 'width');
     }
 }
+
+# Get/set height of PNG
 
 sub height
 {
@@ -393,7 +409,7 @@ sub rows
             #        $png->handle_error ("");
             return;
         }
-        return Image::PNG::Libpng::get_rows ($png->{read_png});
+        return Image::PNG::Libpng::get_rows ($png->{read}->png ());
     }
 }
 
@@ -404,7 +420,7 @@ sub rowbytes
 #        $png->handle_error ("");
         return;
     }
-    return Image::PNG::Libpng::get_rowbytes ($png->{read_png});
+    return Image::PNG::Libpng::get_rowbytes ($png->{read}->png ());
 }
 
 sub text
@@ -412,7 +428,7 @@ sub text
     my ($png, $text) = @_;
     if (! $png->{text}) {
         my $text_ref =
-            Image::PNG::Libpng::get_text ($png->{read_png});
+            Image::PNG::Libpng::get_text ($png->{read}->png ());
         $png->{text} = $text_ref;
         # Change the text compression field to words rather than numbers.
         for my $text (@{$png->{text}}) {
@@ -429,7 +445,10 @@ sub text
 sub time
 {
     my ($png) = @_;
-    return Image::PNG::Libpng::get_tIME ($png->{read_png});
+    if (! $png->{read}) {
+        return undef;
+    }
+    return Image::PNG::Libpng::get_tIME ($png->{read}->{png});
 }
 
 # We need to free the memory associated with the C structs allocated
@@ -481,7 +500,7 @@ sub display_text
 
 =head1 NAME
 
-Image::PNG - Read and write PNG (Portable Network Graphics) files
+Image::PNG - Read and write PNG files
 
 =head1 WARNING
 
@@ -503,21 +522,53 @@ contains links to things which do not exist and may never exist.
 
 =head1 General methods
 
+=head2 new
+
+    my $png = Image::PNG->new ();
+
+Create a new PNG-file reading or writing object.
+
+Options are
+
+=over
+
+=item read
+
+    my $png = Image::PNG->new ({read => 'some.png'});
+
+Set the file to read. The file is then read at the time of object
+creation.
+
+=item verbosity
+
+    my $png = Image::PNG->new ({verbosity => 1});
+
+If C<verbosity> is set to a true value, print verbose messages about
+what the module is doing.
+
+=back
+
 =head2 read_file
 
     $png->read_file ("crazy.png")
         or die "Can't read it: " . $png->error ();
+
+Read the PNG from the file name specified as the argument. This dies
+if there is an error.
 
 =head2 write_file
 
     $png->write_file ("crazy.png")
         or die "Can't write it: " . $png->error ();
 
+Write the PNG to the file name specified as the argument. This dies
+if there is an error.
+
 =head2 data
 
      my $data = $png->data ();
 
-Get the PNG binary data.
+Get the PNG image data as a Perl scalar.
 
 =head2 error
 
@@ -611,7 +662,7 @@ the values of those fields.
     print "The PNG was last modified in $time_ref->{year}.\n";
 
 Get the last modified time of the image. The return value is a hash
-reference containing six fields,
+reference containing the following six fields,
 
 =over
 
@@ -633,8 +684,8 @@ These represent the last modification time of the image. The
 modification time of a PNG file is meant to be in the GMT (UCT) time
 zone so there is no time zone information in this.
 
-If there is no last modification time, a hash reference is returned
-but it doesn't contain any fields.
+If there is no last modification time, the undefined value is returned
+instead of a hash reference.
 
 =head1 FUNCTIONS
 
@@ -722,6 +773,11 @@ support other chunks.
 
 =head2 About the PNG format
 
+=head3 Wikipedia article
+
+There is L<http://en.wikipedia.org/wiki/Portable_Network_Graphics|a
+good article on the format on Wikipedia>.
+
 =head3 The PNG specification
 
 L<The PNG specification|http://www.w3.org/TR/PNG/> (link to W3
@@ -792,7 +848,7 @@ they can easily access records of previous discussions.
 
 =head2 CPAN stuff
 
-There is a bug tracker at .
+There is a bug tracker at L<https://github.com/benkasminbullock/Image-PNG/issues|rt.cpan.org>.
 
 =head1 FOR PROGRAMMERS
 

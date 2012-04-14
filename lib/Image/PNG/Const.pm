@@ -637,7 +637,7 @@ they can easily access records of previous discussions.
 
 =head2 CPAN stuff
 
-There is a bug tracker at .
+There is a bug tracker at L<https://github.com/benkasminbullock/Image-PNG/issues|rt.cpan.org>.
 
 =head1 FOR PROGRAMMERS
 
