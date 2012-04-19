@@ -68,6 +68,7 @@ EOF
 # A minimal C program to test compilation and running.
 
 my $test_c = <<'EOF';
+#include <stdlib.h>
 #include <stdio.h>
 #include "png.h"
 void failburger (const char * message)
@@ -221,7 +222,7 @@ EOF
 
 WriteMakefile (
     NAME         => 'Image::PNG',
-    VERSION      => '0.15',
+    VERSION      => '0.16',
     ABSTRACT     => 'Read and write PNG files',
     OBJECT       => 'Libpng.o perl-libpng.o',
     LIBS         => $libs,

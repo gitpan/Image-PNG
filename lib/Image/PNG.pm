@@ -9,7 +9,7 @@ use warnings;
 use strict;
 use Carp;
 
-our $VERSION = '0.15';
+our $VERSION = '0.16';
 
 
 sub error
@@ -286,11 +286,13 @@ sub data
     my ($png, $data) = @_;
     if (! $data) {
         # Return the existing data
-    } else {
+    }
+    else {
         # Put $data into the PNG
         if ($png->{data}) {
             carp __PACKAGE__, ": you have asked me to put a scalar value as the PNG data, but I already have PNG data inside me. Please use a fresh object.";
-        } elsif ($png->{read_file_name}) {
+        }
+        elsif ($png->{read_file_name}) {
             carp __PACKAGE__, ": you have asked me to put a scalar value as the PNG data, but I already contain PNG data from a file called '$png->{read_file_name}. Please use a fresh object.";
         }
     }
@@ -497,20 +499,9 @@ sub display_text
 
 1;
 
-
 =head1 NAME
 
 Image::PNG - Read and write PNG files
-
-=head1 WARNING
-
-This version of the module is solely for evaluation and testing. This
-module is currently incomplete and untested, and contains errors,
-bugs, and inconsistencies, including unresolved memory corruption
-errors which can crash Perl. The documentation below refers to
-functions which may or may not exist in the completed module and
-contains links to things which do not exist and may never exist.
-
 
 
 
@@ -548,17 +539,17 @@ what the module is doing.
 
 =back
 
-=head2 read_file
+=head2 read
 
-    $png->read_file ("crazy.png")
+    $png->read ("crazy.png")
         or die "Can't read it: " . $png->error ();
 
 Read the PNG from the file name specified as the argument. This dies
 if there is an error.
 
-=head2 write_file
+=head2 write
 
-    $png->write_file ("crazy.png")
+    $png->write ("crazy.png")
         or die "Can't write it: " . $png->error ();
 
 Write the PNG to the file name specified as the argument. This dies
@@ -640,11 +631,13 @@ no image has been read yet, it returns the undefined value.
 
     my $rows = $png->rows;
 
-This method returns the rows of the image as an array reference which
-contains a number of elements equal to the height of the image. Each
-element has the length of the number of bytes in one row (as given by
-L<rowbytes>) plus one final zero byte. The row data returned is binary
-data and may contain several bytes with the value zero.
+This method returns the rows of the image as an array reference,
+C<$rows>. The array reference is a size equal to the height of the
+image. Each element has the length of the number of bytes in one row
+(as given by L</rowbytes>) plus one final zero byte. 
+
+The row data returned is binary data and may contain several bytes
+with the value zero.
 
 =head1 Non-image chunks
 
@@ -652,9 +645,10 @@ data and may contain several bytes with the value zero.
 
     my @text = $png->text;
 
-Get the text chunks of the image. Each chunk is a hash reference with
-the keys being the fields of the PNG text chunk and the values being
-the values of those fields.
+Get the text chunks of the image. Each element of the return value is
+a hash reference. The keys are the fields of the PNG text chunk, and
+the values are the values of those fields in the text chunk. The size
+of the array is equal to the number of text chunks.
 
 =head2 time
 
@@ -682,7 +676,7 @@ reference containing the following six fields,
 
 These represent the last modification time of the image. The
 modification time of a PNG file is meant to be in the GMT (UCT) time
-zone so there is no time zone information in this.
+zone so there is no time zone information.
 
 If there is no last modification time, the undefined value is returned
 instead of a hash reference.
@@ -699,16 +693,14 @@ There are some convenience functions in this module, exported on request.
 
 Display the text chunk given as an argument on C<STDOUT>.
 
-This is meant as a minimal convenience function for when you are
-debugging or something rather than a general-purpose text chunk
-display routine.
+This is a convenience function for debugging rather than a
+general-purpose routine.
 
 =head1 SUPPORT
 
 There is a mailing list for this Perl module at Google Groups. If you
-have a question or suggestion or bug report, please let me know via
-the mailing list. You don't have to join the mailing list to post a
-message.
+have an enquiry, post to the mailing list. You don't have to join the
+mailing list to post a message.
 
 =head1 SEE ALSO
 
@@ -726,7 +718,7 @@ PNG library "libpng". Image::PNG is built on top of this module.
 
 =head2 libpng download
 
-If you need to download libpng, see
+To download libpng, see
 L<http://www.libpng.org/pub/png/libpng.html>. See also L</Alien::PNG>.
 
 =head2 Other Perl modules on CPAN
@@ -775,8 +767,8 @@ support other chunks.
 
 =head3 Wikipedia article
 
-There is L<http://en.wikipedia.org/wiki/Portable_Network_Graphics|a
-good article on the format on Wikipedia>.
+There is L<http://en.wikipedia.org/wiki/Portable_Network_Graphics|an
+article on the format on Wikipedia>.
 
 =head3 The PNG specification
 
@@ -788,11 +780,7 @@ consortium) explains the details of the PNG format.
 
 The book "PNG - The Definitive Guide" by Greg Roelofs, published in
 1999 by O'Reilly is available online at
-L<http://www.faqs.org/docs/png/>. I didn't refer to this book at all
-in making Image::PNG, so I can't vouch for it, but looking at the
-contents pages it appears to contain a lot of useful information,
-although it is definitely showing its age, with chapters about
-software such as Netscape Navigator and BeOS.
+L<http://www.faqs.org/docs/png/>. 
 
 =head1 EXAMPLES
 
@@ -871,7 +859,6 @@ generates the header file perl-libpng.h from perl-libpng.c.
 
 
 =cut
-
 
 # Local Variables:
 # mode: perl

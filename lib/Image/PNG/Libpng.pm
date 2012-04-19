@@ -84,7 +84,7 @@ require DynaLoader;
 );
 
 require XSLoader;
-our $VERSION = '0.15';
+our $VERSION = '0.16';
 
 XSLoader::load('Image::PNG', $VERSION);
 
@@ -103,16 +103,6 @@ XSLoader::load('Image::PNG', $VERSION);
 =head1 NAME
 
 Image::PNG::Libpng - Perl interface to the C library "libpng".
-
-=head1 WARNING
-
-This version of the module is solely for evaluation and testing. This
-module is currently incomplete and untested, and contains errors,
-bugs, and inconsistencies, including unresolved memory corruption
-errors which can crash Perl. The documentation below refers to
-functions which may or may not exist in the completed module and
-contains links to things which do not exist and may never exist.
-
 
 
 
@@ -241,7 +231,7 @@ a routine which reads data from Perl scalars. It then uses
 C<png_read_png> to read all the data.
 
 The C function which does this is called C<perl_png_scalar_read>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.15/perl-libpng.c>.
+L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.16/perl-libpng.c>.
 
 See also L</Input/output manipulation functions>.
 
@@ -271,7 +261,7 @@ uses C<png_set_write_fn> to set the writing function of C<$png> to be
 its own function, which writes data to the Perl scalar.
 
 The C function which does this is called C<perl_png_scalar_write>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.15/perl-libpng.c>.
+L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.16/perl-libpng.c>.
 
 See also L</Input/output manipulation functions>.
 
@@ -1137,7 +1127,7 @@ instances of unevaluated arguments, which have all been eliminated
 from this module.
 
 If you are interested in exactly which libpng arguments are omitted,
-you can find each instance L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.15/perl-libpng.c> in the macro
+you can find each instance L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.16/perl-libpng.c> in the macro
 C<UNUSED_ZERO_ARG>.
 
 =head2 Function return values are used to return values
