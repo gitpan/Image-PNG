@@ -277,43 +277,43 @@ void perl_png_set_row_pointers (perl_libpng_t * png , void * row_pointers );
 #line 1594 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_rows (perl_libpng_t * png , AV * rows );
 
-#line 1636 "tmpl/perl-libpng.c.tmpl"
+#line 1656 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_verbosity (perl_libpng_t * png , int verbosity );
 
-#line 1645 "tmpl/perl-libpng.c.tmpl"
+#line 1665 "tmpl/perl-libpng.c.tmpl"
 void perl_png_handle_undefined (perl_libpng_t * png , int die , int raise );
 
-#line 1654 "tmpl/perl-libpng.c.tmpl"
+#line 1674 "tmpl/perl-libpng.c.tmpl"
 void perl_png_handle_error (perl_libpng_t * png , int die , int raise );
 
-#line 1680 "tmpl/perl-libpng.c.tmpl"
+#line 1700 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_unknown_chunks (perl_libpng_t * png );
 
-#line 1733 "tmpl/perl-libpng.c.tmpl"
+#line 1753 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_unknown_chunks (perl_libpng_t * png , AV * chunk_list );
 
-#line 1803 "tmpl/perl-libpng.c.tmpl"
+#line 1823 "tmpl/perl-libpng.c.tmpl"
 int perl_png_supports (const char * what );
 
-#line 1820 "tmpl/perl-libpng.c.tmpl"
+#line 1840 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_keep_unknown_chunks (perl_libpng_t * png , int keep , SV * chunk_list );
 
-#line 1889 "tmpl/perl-libpng.c.tmpl"
+#line 1909 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_expand (perl_libpng_t * png );
 
-#line 1895 "tmpl/perl-libpng.c.tmpl"
+#line 1915 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_gray_to_rgb (perl_libpng_t * png );
 
-#line 1901 "tmpl/perl-libpng.c.tmpl"
+#line 1921 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_filler (perl_libpng_t * png , int filler , int flags );
 
-#line 1907 "tmpl/perl-libpng.c.tmpl"
+#line 1927 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_strip_16 (perl_libpng_t * png );
 
-#line 1912 "tmpl/perl-libpng.c.tmpl"
+#line 1932 "tmpl/perl-libpng.c.tmpl"
 SV * perl_png_get_cHRM (perl_libpng_t * png );
 
-#line 1947 "tmpl/perl-libpng.c.tmpl"
+#line 1967 "tmpl/perl-libpng.c.tmpl"
 void perl_png_set_cHRM (perl_libpng_t * png , HV * cHRM );
 
 #endif /* CFH_PERL_LIBPNG_H */

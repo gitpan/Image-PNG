@@ -84,7 +84,7 @@ require DynaLoader;
 );
 
 require XSLoader;
-our $VERSION = '0.16';
+our $VERSION = '0.17';
 
 XSLoader::load('Image::PNG', $VERSION);
 
@@ -231,7 +231,7 @@ a routine which reads data from Perl scalars. It then uses
 C<png_read_png> to read all the data.
 
 The C function which does this is called C<perl_png_scalar_read>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.16/perl-libpng.c>.
+L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.17/perl-libpng.c>.
 
 See also L</Input/output manipulation functions>.
 
@@ -261,7 +261,7 @@ uses C<png_set_write_fn> to set the writing function of C<$png> to be
 its own function, which writes data to the Perl scalar.
 
 The C function which does this is called C<perl_png_scalar_write>, 
-L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.16/perl-libpng.c>.
+L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.17/perl-libpng.c>.
 
 See also L</Input/output manipulation functions>.
 
@@ -337,7 +337,7 @@ This function corresponds to C<png_read_png> with a default value for the third
 argument. The fourth, unused, argument to C<png_read_png> does not
 need to be supplied. See L<Unused arguments omitted>.
 
-It does not take a second "info" argument. No info structure
+It does not take a second "info" argument. See L</No info structure>.
 
 =head2 write_png
 
@@ -1094,6 +1094,28 @@ See section "4.2.2.2. cHRM Primary chromaticities" of the PNG specification.
 This function corresponds to C<png_set_cHRM> with a hash function instead of the C<double>
 arguments.
 
+=head1 META FUNCTIONS
+
+=head2 supports
+
+    if (supports ('iTXt')) {
+        print "Your libpng supports international text.\n";
+    }
+
+This function returns true or false depending on whether the version
+of libpng which this was compiled with supports or does not support a
+particular facility.
+
+The possible arguments to C<supports> are
+
+=over
+
+=item iTXt
+
+Does the libpng support international text?
+
+=back
+
 =head1 EXPORTS
 
 Nothing is exported by default, but all the functions in this module
@@ -1127,7 +1149,7 @@ instances of unevaluated arguments, which have all been eliminated
 from this module.
 
 If you are interested in exactly which libpng arguments are omitted,
-you can find each instance L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.16/perl-libpng.c> in the macro
+you can find each instance L<in the file C<perl-libpng.c> in the top directory of the distribution|http://cpansearch.perl.org/src/BKB/Image-PNG-0.17/perl-libpng.c> in the macro
 C<UNUSED_ZERO_ARG>.
 
 =head2 Function return values are used to return values
@@ -1335,6 +1357,12 @@ There was an attempt to set the rows of an image after they had already been set
 
 
 
+=item array has %d rows but PNG image requires %d rows
+
+(F) 
+
+
+
 =item Chunk name '%s' has wrong number of characters: %d required
 
 (F) 
@@ -1520,7 +1548,7 @@ Ben Bullock, <bkb@cpan.org>
 =head1 COPYRIGHT & LICENCE
 
 The Image::PNG package and associated files are copyright (C)
-2012 Ben Bullock.
+2013 Ben Bullock.
 
 You can use, copy, modify and redistribute Image::PNG and
 associated files under the Perl Artistic Licence or the GNU General

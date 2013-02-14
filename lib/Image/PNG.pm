@@ -9,7 +9,7 @@ use warnings;
 use strict;
 use Carp;
 
-our $VERSION = '0.16';
+our $VERSION = '0.17';
 
 
 sub error
@@ -611,7 +611,7 @@ Get the bit depth of the current PNG image.
 
 =head2 interlacing_method
 
-    my $interlacing_method = $png->interlacing_method
+    my $interlacing_method = $png->interlacing_method ();
 
 Get the name of the method of interlacing of the current PNG image.
 
@@ -767,8 +767,7 @@ support other chunks.
 
 =head3 Wikipedia article
 
-There is L<http://en.wikipedia.org/wiki/Portable_Network_Graphics|an
-article on the format on Wikipedia>.
+There is L<an article on the format on Wikipedia|http://en.wikipedia.org/wiki/Portable_Network_Graphics>.
 
 =head3 The PNG specification
 
@@ -812,7 +811,7 @@ Ben Bullock, <bkb@cpan.org>
 =head1 COPYRIGHT & LICENCE
 
 The Image::PNG package and associated files are copyright (C)
-2012 Ben Bullock.
+2013 Ben Bullock.
 
 You can use, copy, modify and redistribute Image::PNG and
 associated files under the Perl Artistic Licence or the GNU General
