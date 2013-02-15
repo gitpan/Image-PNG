@@ -9,7 +9,7 @@ use Carp;
 use Image::PNG::Const ':all';
 use Image::PNG::Libpng ':all';
 
-our $VERSION = '0.17';
+our $VERSION = '0.18';
 
 
 sub new
@@ -89,19 +89,6 @@ sub png
 {
     my ($object) = @_;
     return $object->{png};
-}
-
-# Free the memory associated with the object which this contains.
-
-sub DESTROY
-{
-    my ($object) = @_;
-    if ($object->{read_only}) {
-        Image::PNG::Libpng::destroy_read_struct ($object->{png});
-    }
-    else {
-        Image::PNG::Libpng::destroy_write_struct ($object->{png});
-    }
 }
 
 1;

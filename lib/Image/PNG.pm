@@ -9,7 +9,7 @@ use warnings;
 use strict;
 use Carp;
 
-our $VERSION = '0.17';
+our $VERSION = '0.18';
 
 
 sub error
@@ -78,8 +78,6 @@ sub new
     my ($package, $options) = @_;
     my $png = {};
     bless $png;
-    # Set the read data to empty.
-    $png->{read} = undef;
     # The marker "error_string" contains the most recent error.
     $png->{error_string} = '';
     if ($options && ref $options eq 'HASH') {
@@ -255,8 +253,8 @@ sub write_set
     $png->{write}->{$key} = $value;
 }
 
-# Initialize the object $png for writing (get the stupid libpng things
-# we need to write an image, set a flag "write_ok" in the image.).
+# Initialize the object $png for writing (get the libpng things we
+# need to write an image, set a flag "write_ok" in the image.).
 
 sub init_write
 {
@@ -451,17 +449,6 @@ sub time
         return undef;
     }
     return Image::PNG::Libpng::get_tIME ($png->{read}->{png});
-}
-
-# We need to free the memory associated with the C structs allocated
-# inside libpng, so this class has a DESTROY method.
-
-sub DESTROY
-{
-    my ($png) = @_;
-    if ($png->{verbose}) {
-        print "Freeing the memory of a PNG object.\n";
-    }
 }
 
 # The text segment of the PNG should probably be an object in its own
@@ -822,38 +809,19 @@ Public Licence.
 =head2 Mailing list
 
 There is a mailing list at
-L<http://groups.google.com/group/perlimagepng>. You don't need to be a
-member of the list to post messages to the list or participate in
-discussions. Your messages may be held for moderation though.
-
-If you have anything at all to say about the module, whether it is bug
-reports, feature requests, or anything else, I'd prefer to discuss it
-on the mailing list because that way there is a public record which
-everyone can access, rather than being restricted to email. That means
-that, for example, if someone else takes over maintaining this module,
-they can easily access records of previous discussions.
+L<http://groups.google.com/group/perlimagepng>. It is not necessary to
+be a member of the list to post messages to the list or participate in
+discussions.
 
 =head2 CPAN stuff
 
-There is a bug tracker at L<https://github.com/benkasminbullock/Image-PNG/issues|rt.cpan.org>.
+There is a bug tracker at L<https://github.com/benkasminbullock/Image-PNG/issues>.
 
 =head1 FOR PROGRAMMERS
 
-(This section is only for people who want to fix a bug or add an
-improvement to this module, and who want to share the change with
-other people by adding it to the public version of this module.)
-
-If you want to alter this module, note very carefully that the
-distributed files are not actually the source code of the module. The
+The distributed files are not the source code of the module. The
 source code lives in the "tmpl" directory of the distribution and the
 distribution is created via scripts.
-
-The original files of this distribution make very heavy use of the
-L<Template> Perl module in order to cut down the amount of repetitive
-stuff which needs to be put into various source and documentation
-files. If you plan to alter the C file, you may also need a program
-called "cfunctions" which you can download from sourceforge, which
-generates the header file perl-libpng.h from perl-libpng.c.
 
 
 

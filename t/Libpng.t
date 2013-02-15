@@ -1,10 +1,9 @@
 #line 2 "Libpng.t.tmpl"
 use warnings;
 use strict;
-use Test::More tests => 21;
+use Test::More tests => 20;
 use FindBin;
 use File::Compare;
-BEGIN { use_ok('Image::PNG::Libpng') };
 use Image::PNG::Libpng;
 use utf8;
 use Image::PNG::Const ':all';
@@ -18,59 +17,50 @@ binmode STDOUT, ":utf8";
 
 my $png = Image::PNG::Libpng::create_read_struct ();
 ok ($png, 'call "create_read_struct" and get something');
-Image::PNG::Libpng::set_verbosity ($png, 1);
+$png->set_verbosity (1);
 my $file_name = "$FindBin::Bin/test.png";
 
 open my $file, "<", $file_name or die "Can't open '$file_name': $!";
 
-Image::PNG::Libpng::init_io ($png, $file);
-Image::PNG::Libpng::read_info ($png);
+$png->init_io ($file);
+$png->read_info ();
 
-my $IHDR = Image::PNG::Libpng::get_IHDR ($png);
+my $IHDR = $png->get_IHDR ();
 ok ($IHDR->{width} == 100, "width");
 ok ($IHDR->{height} == 100, "height");
-Image::PNG::Libpng::destroy_read_struct ($png);
+$png->destroy_read_struct ();
 close $file or die $!;
 
 my $file_in_name = "$FindBin::Bin/test.png";
 open my $file_in, "<", $file_in_name or die "Can't open '$file_in_name': $!";
 
 my $png_in = Image::PNG::Libpng::create_read_struct ();
-Image::PNG::Libpng::init_io ($png_in, $file_in);
-Image::PNG::Libpng::read_png ($png_in, 0);
+$png_in->init_io ($file_in);
+$png_in->read_png (0);
 close $file_in or die $!;
 my $file_out_name = "$FindBin::Bin/test-write.png";
 my $png_out = Image::PNG::Libpng::create_write_struct ();
-if (0) {
-open my $file_out, ">", $file_out_name or die "Can't open '$file_out_name': $!";
-Image::PNG::Libpng::init_io ($png_out, $file_out);
-Image::PNG::Libpng::write_png ($png_out, 0);
-close $file_out or die $!;
-ok (compare ($file_in_name, $file_out_name) == 0, "copy file");
-}
 my $time_file_name = "$FindBin::Bin/with-time.png";
 open my $file2, "<", $time_file_name or die "Can't open '$time_file_name': $!";
 my $png2 = Image::PNG::Libpng::create_read_struct ();
-Image::PNG::Libpng::init_io ($png2, $file2);
-Image::PNG::Libpng::read_info ($png2);
+$png2->init_io ($file2);
+$png2->read_info ();
 my %times;
-%times = %{Image::PNG::Libpng::get_tIME ($png2)};
+%times = %{$png2->get_tIME ()};
 ok ($times{year} == 2010, "year");
 ok ($times{month} == 12, "month");
 ok ($times{day} == 29, "day");
 ok ($times{hour} == 16, "hour");
 ok ($times{minute} == 20, "minute");
 ok ($times{second} == 20, "second");
-#Image::PNG::Libpng::destroy_read_struct ($png2);
 close $file2 or die $!;
 
 my $text_file_name = "$FindBin::Bin/with-text.png";
 open my $file3, "<", $text_file_name or die "Can't open '$text_file_name': $!";
 my $png3 = Image::PNG::Libpng::create_read_struct ();
-#Image::PNG::Libpng::set_verbosity ($png3, 1);
-Image::PNG::Libpng::init_io ($png3, $file3);
-Image::PNG::Libpng::read_info ($png3);
-my @text_chunks = @{Image::PNG::Libpng::get_text ($png3)};
+$png3->init_io ($file3);
+$png3->read_info ();
+my @text_chunks = @{$png3->get_text ()};
 
 my $chunk1 = $text_chunks[0];
 ok ($chunk1->{compression} == 0, "text compression");
@@ -83,7 +73,7 @@ SKIP: {
     my $chunk3 = $text_chunks[2];
     ok ($chunk3->{compression} == 1, "text compression for iTXT");
     ok ($chunk3->{key} eq 'Detective', "text key");
-    ok ($chunk3->{lang_key} eq '探偵', "text lang_key");
+#    ok ($chunk3->{lang_key} eq '探偵', "text lang_key");
     ok ($chunk3->{text} eq '工藤俊作', "text text in UTF-8");
 };
 
@@ -91,19 +81,16 @@ SKIP: {
 close $file3 or die $!;
 
 my $number_version = Image::PNG::Libpng::access_version_number ();
-#print $number_version;
-#print "\n";
 ok ($number_version =~ /^\d+$/, "Numerical version number OK");
 my $version = Image::PNG::Libpng::get_libpng_ver ();
-#print $version;
-#print "\n";
 $version =~ s/\./0/g;
 
 # The following fails for older versions of libpng which seem to have
 # a different numbering system.
 
 if ($number_version > 100000) {
-    ok ($number_version == $version, "Library version $number_version == $version OK");
+    ok ($number_version == $version,
+        "Library version $number_version == $version OK");
 }
 
 # Read a file which is not correct. On version 0.02 this caused a core
@@ -118,37 +105,38 @@ if (! -f $badpngfile) {
 eval {
     open my $badfh, "<:raw", $badpngfile or die $!;
     my $badpng = Image::PNG::Libpng::create_read_struct ();
-    Image::PNG::Libpng::init_io ($badpng, $badfh);
-    Image::PNG::Libpng::read_png ($badpng);
+    $badpng->init_io ($badfh);
+    $badpng->read_png ();
 };
 ok ($@, "Error reading bad PNG causes croak (not core dump)");
 ok ($@ =~ /libpng error/, "Found string 'libpng error' in error message.");
 
 eval {
     my $png_no_rows = Image::PNG::Libpng::create_write_struct ();
-    Image::PNG::Libpng::set_IHDR ($png_no_rows, {
+    $png_no_rows->set_IHDR ({
         width => 200,
         height => 200,
         bit_depth => 1,
         color_type => PNG_COLOR_TYPE_GRAY,
     });
     my @rows;
-    Image::PNG::Libpng::set_rows ($png_no_rows, \@rows);
+    $png_no_rows->set_rows (\@rows);
 };
 like ($@, qr/requires 200 rows/, "Produces error for empty \@rows");
 
-
-
-#done_testing ();
-
-# for my $text_chunk (@text_chunks) {
-# for my $k (keys %$text_chunk) {
-#     if (defined $text_chunk->{$k}) {
-#         print "$k: $text_chunk->{$k}\n";
-#     }
-# }
-    
-# }
+eval {
+    my $png_no_io_init = Image::PNG::Libpng::create_write_struct ();
+    $png_no_io_init->set_IHDR ({
+        width => 1,
+        height => 1,
+        bit_depth => 1,
+        color_type => PNG_COLOR_TYPE_GRAY,
+    });
+    $png_no_io_init->set_rows ([0]);
+    $png_no_io_init->write_png ($png_no_io_init);
+};
+like ($@, qr/Attempt to write PNG without calling init_io/,
+      "Produces error on write if no output file has been set");
 
 # Local variables:
 # mode: perl
