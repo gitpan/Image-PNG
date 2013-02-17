@@ -79,6 +79,7 @@ use Carp;
 	set_tIME
 	get_tRNS
 	set_tRNS
+read_file
 /;
 
 %EXPORT_TAGS = (
@@ -86,17 +87,19 @@ use Carp;
 );
 
 require XSLoader;
-our $VERSION = '0.18';
+our $VERSION = '0.19';
 
 XSLoader::load('Image::PNG', $VERSION);
 
 sub read_file
 {
-    my ($png, $file_name) = @_;
+    my ($file_name) = @_;
+    my $png = create_read_struct ();
     open my $in, "<:raw", $file_name or croak $!;
     $png->init_io ($in);
     $png->read_png ();
     close $in or croak $!;
+    return $png;
 }
 
 sub write_file

@@ -1,6 +1,9 @@
 const-c.inc
 const-xs.inc
-faulty-with-text.png
+junk/faulty-with-text.png
+junk/rewrite-with-text.pl
+junk/test-object.pl
+junk/test-supports.pl
 lib/Image/PNG.pm
 lib/Image/PNG/Const.pm
 lib/Image/PNG/Container.pm
@@ -16,7 +19,6 @@ my-xs.h
 perl-libpng.c
 perl-libpng.h
 pm_to_blib
-rewrite-with-text.pl
 script/pnginspect
 t/bgyn6a16.png
 t/bKGD-test.png
@@ -39,8 +41,6 @@ t/tRNS.t
 t/with-text.png
 t/with-time.png
 t/xlfn0g04.png
-test-object.pl
-test-supports.pl
 typemap
 META.yml                                 Module YAML meta-data (added by MakeMaker)
 META.json                                Module JSON meta-data (added by MakeMaker)
