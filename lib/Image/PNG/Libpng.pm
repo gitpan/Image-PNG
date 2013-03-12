@@ -87,7 +87,7 @@ read_file
 );
 
 require XSLoader;
-our $VERSION = '0.19';
+our $VERSION = '0.20';
 
 XSLoader::load('Image::PNG', $VERSION);
 

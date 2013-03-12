@@ -1,5 +1,7 @@
+Changes
 const-c.inc
 const-xs.inc
+inc/Devel/CheckLib.pm
 junk/faulty-with-text.png
 junk/rewrite-with-text.pl
 junk/test-object.pl
