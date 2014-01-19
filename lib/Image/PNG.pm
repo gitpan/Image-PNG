@@ -9,7 +9,7 @@ use warnings;
 use strict;
 use Carp;
 
-our $VERSION = '0.20';
+our $VERSION = '0.20_01';
 
 
 sub error
@@ -685,7 +685,8 @@ general-purpose routine.
 
 =head1 SUPPORT
 
-There is a mailing list for this Perl module at Google Groups. If you
+There is L<a mailing list for this Perl module at Google
+Groups|https://groups.google.com/forum/#!forum/perlimagepng>. If you
 have an enquiry, post to the mailing list. You don't have to join the
 mailing list to post a message.
 
@@ -747,6 +748,20 @@ width, and colour type, it can get text chunks, modification time,
 palette, gamma (gAMA chunk), resolution (pHYs chunk), and significant
 bits (sBIT chunk). At the time of writing (version 1.31) it doesn't
 support other chunks.
+
+=head3 Image::Size
+
+If you only need to find the size of an image, L<Image::Size> can give
+you the size of PNG and various other image formats. This module is
+highly recommended on CPAN ratings.
+
+=head3 Image::PNGwriter
+
+L<Image::PNGwriter> is an interface to a project called
+"PNGwriter". At the time of writing (2013-12-01), only one version has
+been released, in 2005. The most recent version of PNGwriter itself is
+from 2009.
+
 
 
 
