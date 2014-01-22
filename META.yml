@@ -20,10 +20,10 @@ no_index:
     - tmpl
     - build
 requires:
-  Image::PNG::Libpng: 0.22
+  Image::PNG::Libpng: 0.27
   perl: 5.008001
 resources:
   MailingList: http://groups.google.com/group/perlimagepng
   bugtracker: https://github.com/benkasminbullock/Image-PNG/issues
   repository: https://github.com/benkasminbullock/Image-PNG
-version: 0.20_01
+version: 0.20_02

@@ -7,12 +7,12 @@ use 5.008001;
 
 WriteMakefile (
     NAME         => 'Image::PNG',
-    VERSION      => '0.20_01',
+    VERSION      => '0.20_02',
     ABSTRACT     => 'Read and write PNG files',
     AUTHOR => 'Ben Bullock <bkb@cpan.org>',
     LICENSE => 'perl',
     PREREQ_PM => {
-	'Image::PNG::Libpng' => '0.22',
+	'Image::PNG::Libpng' => '0.27',
     },
     META_MERGE => {
         resources => {

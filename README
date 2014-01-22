@@ -6,7 +6,7 @@
                        |___/                                
 
 
-This is the README for Image::PNG version 0.20_01.
+This is the README for Image::PNG version 0.20_02.
 
 Image::PNG is a "module" for the Perl computer programming language, a library
 of computer code to install on a computer.  This document contains four
@@ -58,11 +58,11 @@ If you have the App::cpanminus installer, you may prefer
 
     cpanm Image::PNG
 
-To install the module from the source file, Image-PNG-0.20_01.tar.gz, follow
+To install the module from the source file, Image-PNG-0.20_02.tar.gz, follow
 this sequence of commands:
 
-    tar xfz Image-PNG-0.20_01.tar.gz
-    cd Image-PNG-0.20_01
+    tar xfz Image-PNG-0.20_02.tar.gz
+    cd Image-PNG-0.20_02
     perl Makefile.PL
     make
     make install
@@ -87,6 +87,6 @@ repository on github at
 
 -----------------------------------------------------------------------------
 
-This README was written on Mon Jan 20 00:15:32 2014.
+This README was written on Wed Jan 22 09:42:20 2014.
 
 -----------------------------------------------------------------------------

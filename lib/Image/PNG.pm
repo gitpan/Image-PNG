@@ -9,7 +9,7 @@ use warnings;
 use strict;
 use Carp;
 
-our $VERSION = '0.20_01';
+our $VERSION = '0.20_02';
 
 
 sub error
@@ -813,7 +813,7 @@ Ben Bullock, <bkb@cpan.org>
 =head1 COPYRIGHT & LICENCE
 
 The Image::PNG package and associated files are copyright (C)
-2013 Ben Bullock.
+2014 Ben Bullock.
 
 You can use, copy, modify and redistribute Image::PNG and
 associated files under the Perl Artistic Licence or the GNU General
