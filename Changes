@@ -1,6 +1,6 @@
 Revision history for perl module Image::PNG
 
-0.20_04 2014-01-22
+0.20_05 2014-01-22
 
 * Update "Changes" to match specification
 * Split out Image::PNG::Libpng (XS part of module)
