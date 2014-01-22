@@ -7,7 +7,7 @@ use 5.008001;
 
 WriteMakefile (
     NAME         => 'Image::PNG',
-    VERSION      => '0.20_03',
+    VERSION      => '0.20_04',
     ABSTRACT     => 'Read and write PNG files',
     AUTHOR => 'Ben Bullock <bkb@cpan.org>',
     LICENSE => 'perl',

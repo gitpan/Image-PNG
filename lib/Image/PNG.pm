@@ -9,7 +9,7 @@ use warnings;
 use strict;
 use Carp;
 
-our $VERSION = '0.20_03';
+our $VERSION = '0.20_04';
 
 
 sub error
@@ -497,6 +497,17 @@ Image::PNG - Read and write PNG files
     my $png = Image::PNG->new ();
     $png->read_file ("crazy.png");
     printf "Your PNG is %d x %d\n", $png->width, $png->height;
+
+=head1 DESCRIPTION
+
+Image::PNG is a layer on top of L<Image::PNG::Libpng>. Whereas
+L<Image::PNG::Libpng> copies the interface of the C library C<libpng>,
+Image::PNG is intended to be a more intuitive way to handle PNG
+images. 
+
+Please note that this module is not completed yet and is still under
+development, so the interface may change. It's also open to
+suggestions for improvements.
 
 =head1 General methods
 
