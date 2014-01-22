@@ -26,4 +26,4 @@ resources:
   MailingList: http://groups.google.com/group/perlimagepng
   bugtracker: https://github.com/benkasminbullock/Image-PNG/issues
   repository: https://github.com/benkasminbullock/Image-PNG
-version: 0.20_02
+version: 0.20_03

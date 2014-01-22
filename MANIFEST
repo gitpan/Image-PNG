@@ -8,7 +8,6 @@ junk/test-diag.pl
 junk/test-object.pl
 junk/test-supports.pl
 lib/Image/PNG.pm
-lib/Image/PNG/Const.pm
 lib/Image/PNG/Container.pm
 lib/Image/PNG/Util.pm
 Makefile.PL

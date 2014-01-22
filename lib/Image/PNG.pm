@@ -9,7 +9,7 @@ use warnings;
 use strict;
 use Carp;
 
-our $VERSION = '0.20_02';
+our $VERSION = '0.20_03';
 
 
 sub error
