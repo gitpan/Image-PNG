@@ -39,7 +39,7 @@
          }
       }
    },
-   "release_status" : "testing",
+   "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/benkasminbullock/Image-PNG/issues"
@@ -49,5 +49,5 @@
       },
       "x_MailingList" : "http://groups.google.com/group/perlimagepng"
    },
-   "version" : "0.20_05"
+   "version" : "0.21"
 }
